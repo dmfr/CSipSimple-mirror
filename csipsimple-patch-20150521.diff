@@ -1,0 +1,371 @@
+Index: jni/Application.mk
+===================================================================
+--- jni/Application.mk	(revision 2456)
++++ jni/Application.mk	(working copy)
+@@ -3,7 +3,7 @@
+ # Create a Local.mk file if you need to customize values below
+ 
+ APP_OPTIM        := release
+-APP_ABI := armeabi armeabi-v7a x86 mips
++APP_ABI := armeabi-v7a x86
+ 
+ MY_USE_CSIPSIMPLE := 1
+ 
+@@ -54,7 +54,7 @@
+ # Module for screen capture is
+ # pj_screen_capture_android
+ 
+-APP_PLATFORM := android-14
++APP_PLATFORM := android-21
+ APP_STL := stlport_shared
+ 
+ BASE_PJSIP_FLAGS := -DPJ_ANDROID=1 -DUSE_CSIPSIMPLE=$(MY_USE_CSIPSIMPLE)
+Index: jni/pjsip/android_sources/pjmedia/src/pjmedia-audiodev/opensl_dev.c
+===================================================================
+--- jni/pjsip/android_sources/pjmedia/src/pjmedia-audiodev/opensl_dev.c	(revision 2456)
++++ jni/pjsip/android_sources/pjmedia/src/pjmedia-audiodev/opensl_dev.c	(working copy)
+@@ -57,6 +57,11 @@
+ 
+ #define NUM_BUFFERS 2
+ 
++
++#include "pj_loader.h"
++
++
++
+ struct opensl_aud_factory
+ {
+     pjmedia_aud_dev_factory  base;
+@@ -114,6 +119,10 @@
+     char               *recordBuffer[NUM_BUFFERS];
+     int                 recordBufIdx;
+ 
++	/* AEC through JNI */
++	jobject aecManager;
++	jclass  aecManager_class;
++
+     W_SLBufferQueueItf  playerBufQ;
+     W_SLBufferQueueItf  recordBufQ;
+ };
+@@ -505,6 +514,17 @@
+             param->channel_count;
+     bufferSize = param->samples_per_frame * param->bits_per_sample / 8;
+ 
++#ifdef __ANDROID__
++    // DAMS HACK
++    JNIEnv *jni_env = 0;
++    ATTACH_JVM(jni_env) ;
++
++    stream->aecManager_class = (jclass)(*jni_env)->NewGlobalRef(jni_env,(*jni_env)->FindClass(jni_env,"com/csipsimple/service/AecManager"));
++    jmethodID constructor_method = (*jni_env)->GetMethodID(jni_env,stream->aecManager_class,"<init>", "(III)V");
++    stream->aecManager = (*jni_env)->NewObject(jni_env,stream->aecManager_class, constructor_method, param->clock_rate, param->channel_count, param->bits_per_sample) ;
++    stream->aecManager = (*jni_env)->NewGlobalRef(jni_env,stream->aecManager);
++#endif
++
+     /* Configure audio PCM format */
+     format_pcm.formatType = SL_DATAFORMAT_PCM;
+     format_pcm.numChannels = param->channel_count;
+@@ -620,7 +640,7 @@
+     }
+ 
+     if (stream->dir & PJMEDIA_DIR_CAPTURE) {
+-        /* Audio source */
++         /* Audio source */
+         SLDataLocator_IODevice loc_dev = {SL_DATALOCATOR_IODEVICE,
+                                           SL_IODEVICE_AUDIOINPUT,
+                                           SL_DEFAULTDEVICEID_AUDIOINPUT,
+@@ -682,8 +702,9 @@
+                                   "recorder configuration"));
+         }
+ #endif
+-        
+-        /* Realize the recorder */
++
++
++       /* Realize the recorder */
+         result = (*stream->recordObj)->Realize(stream->recordObj,
+                                                SL_BOOLEAN_FALSE);
+         if (result != SL_RESULT_SUCCESS) {
+@@ -691,6 +712,19 @@
+             goto on_error;
+         }
+         
++        
++        
++#ifdef __ANDROID__
++    // DAMS HACK
++    jmethodID test_method = (*jni_env)->GetMethodID(jni_env,stream->aecManager_class, "useAecHack", "()V");
++    (*jni_env)->CallVoidMethod(jni_env,stream->aecManager, test_method) ;
++#endif
++
++        
++         
++        
++        
++        
+         /* Get the record interface */
+         result = (*stream->recordObj)->GetInterface(stream->recordObj,
+                                                     SL_IID_RECORD,
+@@ -735,9 +769,17 @@
+     /* Done */
+     stream->base.op = &opensl_strm_op;
+     *p_aud_strm = &stream->base;
++#ifdef __ANDROID__
++    // DAMS HACK
++    DETACH_JVM(jni_env) ;
++#endif
+     return PJ_SUCCESS;
+     
+ on_error:
++#ifdef __ANDROID__
++    // DAMS HACK
++    DETACH_JVM(jni_env) ;
++#endif
+     strm_destroy(&stream->base);
+     return PJMEDIA_EAUD_INVOP;
+ }
+@@ -942,6 +984,25 @@
+     /* Stop the stream */
+     strm_stop(s);
+     
++#ifdef __ANDROID__
++	// DAMS HACK
++	JNIEnv *jni_env = 0;
++	ATTACH_JVM(jni_env) ;
++	
++	if(stream->aecManager){
++		//release AEC
++		jmethodID release_method = (*jni_env)->GetMethodID(jni_env,stream->aecManager_class,"releaseAec", "()V");
++		(*jni_env)->CallVoidMethod(jni_env,stream->aecManager, release_method);
++
++		(*jni_env)->DeleteGlobalRef(jni_env,stream->aecManager);
++		(*jni_env)->DeleteGlobalRef(jni_env,stream->aecManager_class);
++		stream->aecManager = NULL;
++		stream->aecManager_class = NULL;
++	}
++	
++	DETACH_JVM(jni_env) ;
++#endif
++
+     if (stream->playerObj) {
+         /* Destroy the player */
+         (*stream->playerObj)->Destroy(stream->playerObj);
+@@ -960,6 +1021,7 @@
+         stream->recordRecord = NULL;
+         stream->recordBufQ = NULL;
+     }
++
+     
+     pj_pool_release(stream->pool);
+     PJ_LOG(4, (THIS_FILE, "OpenSL stream destroyed"));
+Index: jni/pjsip/android_toolchain/pjmedia/OpenSL_ES.mk
+===================================================================
+--- jni/pjsip/android_toolchain/pjmedia/OpenSL_ES.mk	(revision 2456)
++++ jni/pjsip/android_toolchain/pjmedia/OpenSL_ES.mk	(working copy)
+@@ -13,7 +13,8 @@
+ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../pjlib/include $(LOCAL_PATH)/../pjlib-util/include \
+ 	$(LOCAL_PATH)/../pjnath/include $(LOCAL_PATH)/include $(LOCAL_PATH)/..
+ 
+-LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../android_sources/pjmedia/include/pjmedia-audiodev
++LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../android_sources/pjmedia/include/pjmedia-audiodev \
++	$(LOCAL_PATH)/../../../swig-glue
+ 
+ 
+ LOCAL_SRC_FILES += $(PJ_ANDROID_SRC_DIR)/pjmedia-audiodev/opensl_dev.c
+Index: jni/pjsip/patches/015dams_fixed_jbuf.diff
+===================================================================
+--- jni/pjsip/patches/015dams_fixed_jbuf.diff   (revision 0)
++++ jni/pjsip/patches/015dams_fixed_jbuf.diff   (working copy)
+@@ -0,0 +1,14 @@
++Index: pjsip/sources/pjmedia/src/pjmedia/stream.c
++===================================================================
++--- pjsip.orig/sources/pjmedia/src/pjmedia/stream.c    2014-06-22 14:49:04.188287832 +0200
+++++ pjsip/sources/pjmedia/src/pjmedia/stream.c 2014-06-22 14:49:04.184287475 +0200
++@@ -2264,7 +2264,8 @@
++ 
++ 
++     /* Set up jitter buffer */
++-    pjmedia_jbuf_set_adaptive( stream->jb, jb_init, jb_min_pre, jb_max_pre);
+++    //pjmedia_jbuf_set_adaptive( stream->jb, jb_init, jb_min_pre, jb_max_pre);
+++    pjmedia_jbuf_set_fixed( stream->jb, jb_init );
++ 
++     /* Create decoder channel: */
++ 
+Index: jni/pjsip/patches/series
+===================================================================
+--- jni/pjsip/patches/series    (revision 2456)
++++ jni/pjsip/patches/series    (working copy)
+@@ -8,3 +8,4 @@
+ 011add_vpx_type.h
+ 013ignore_stun_failure_transport_creation.diff
+ 014opus_ts_fix.diff
++015dams_fixed_jbuf.diff
+Index: project.properties
+===================================================================
+--- project.properties	(revision 2456)
++++ project.properties	(working copy)
+@@ -10,5 +10,5 @@
+ # Indicates whether an apk should be generated for each density.
+ split.density=false
+ # Project target.
+-target=android-19
++target=android-21
+ android.library.reference.1=../ActionBarSherlock
+Index: res/values/prefs_values.xml
+===================================================================
+--- res/values/prefs_values.xml	(revision 2456)
++++ res/values/prefs_values.xml	(working copy)
+@@ -25,6 +25,7 @@
+         <item>16000</item>
+         <item>32000</item>
+         <item>44100</item>
++	<item>48000</item>
+     </string-array>
+     <string-array name="clock_rate_choices">
+         <item>@string/auto</item>
+@@ -32,6 +33,7 @@
+         <item>16KHz</item>
+         <item>32KHz</item>
+         <item>44.1KHz</item>
++	<item>48kHz</item>
+     </string-array>
+     <string-array name="use_srtp_values">
+         <item>0</item>
+@@ -302,4 +304,4 @@
+         <item>5.2</item>
+     </string-array>
+ 
+-</resources>
+\ No newline at end of file
++</resources>
+Index: src/com/csipsimple/pjsip/PjSipService.java
+===================================================================
+--- src/com/csipsimple/pjsip/PjSipService.java	(revision 2456)
++++ src/com/csipsimple/pjsip/PjSipService.java	(working copy)
+@@ -1931,7 +1931,7 @@
+                     callHold(hasBeenHoldByGSM);
+                     pjsua.set_no_snd_dev();
+ 
+-                    am.setMode(AudioManager.MODE_IN_CALL);
++                    am.setMode(AudioManager.MODE_IN_COMMUNICATION);
+                 } else {
+                     // We have a ringing incoming call.
+                     // Avoid ringing
+Index: src/com/csipsimple/service/AecManager.java
+===================================================================
+--- src/com/csipsimple/service/AecManager.java	(revision 0)
++++ src/com/csipsimple/service/AecManager.java	(working copy)
+@@ -0,0 +1,78 @@
++package com.csipsimple.service;
++
++import java.util.ArrayList;
++import android.media.AudioFormat;
++import android.media.AudioRecord;
++import android.media.MediaRecorder;
++import android.media.audiofx.AcousticEchoCanceler;
++import android.util.Log;
++
++public class AecManager {
++	AcousticEchoCanceler mAec ;
++	int mStartId ;
++	
++	public AecManager( int sampleRate, int channelCount, int bitsPerSample ) {
++		mAec = null ;
++		
++		mStartId = 0 ;
++		switch( channelCount ) {
++			case 1 :
++				channelCount = AudioFormat.CHANNEL_IN_MONO ;
++				break ;
++			case 2 :
++				channelCount = AudioFormat.CHANNEL_IN_STEREO ;
++				break ;
++			default :
++				return ;
++		}
++		switch( bitsPerSample ) {
++			case 8 :
++				bitsPerSample = AudioFormat.ENCODING_PCM_8BIT ;
++				break ;
++			case 16 :
++				bitsPerSample = AudioFormat.ENCODING_PCM_16BIT ;
++				break ;
++			default :
++				return ;
++		}
++		
++		try {
++			AudioRecord audioRecord = new AudioRecord( MediaRecorder.AudioSource.VOICE_COMMUNICATION, sampleRate, channelCount, bitsPerSample, 
++				AudioRecord.getMinBufferSize(sampleRate, channelCount, bitsPerSample) ) ;
++			mStartId = audioRecord.getAudioSessionId() ;
++			audioRecord.release() ;
++			Log.e("DAMS","FakeRecorder id is "+mStartId) ;
++		} catch( Exception e ) {
++			Log.e("DAMS","Failed to create FakeRecorder") ;
++		}
++	}
++	public void useAecHack() {
++		if( mAec != null ) {
++			return ;
++		}
++		int winnerId = 0 ;
++		for( int id = mStartId ; id <= (mStartId + 100) ; id++ ) {
++			AcousticEchoCanceler aec = AcousticEchoCanceler.create(id);
++			if( aec != null ) {
++				aec.setEnabled(true);
++				mAec = aec ;
++				winnerId = id ;
++				break ;
++			}
++		}
++		if( mAec != null ) {
++			Log.e("DAMS","AEC id is "+winnerId) ;
++		}
++		if( mAec == null && mStartId > 0 ) {
++			mStartId = 0 ;
++			useAecHack() ;
++		}
++	}
++	public void releaseAec() {
++		if( mAec != null ) {
++			mAec.setEnabled(false);
++			mAec.release() ;
++			mAec = null ;
++		}
++	}
++}
+\ No newline at end of file
+Index: src/com/csipsimple/service/MediaManager.java
+===================================================================
+--- src/com/csipsimple/service/MediaManager.java	(revision 2456)
++++ src/com/csipsimple/service/MediaManager.java	(working copy)
+@@ -148,9 +148,9 @@
+ 		if(service.getPrefs().useModeApi()) {
+             Log.d(THIS_FILE, "User want speaker now..." + userWantSpeaker);
+ 			if(!service.getPrefs().generateForSetCall()) {
+-				return userWantSpeaker ? AudioManager.MODE_NORMAL : AudioManager.MODE_IN_CALL;
++				return userWantSpeaker ? AudioManager.MODE_NORMAL : AudioManager.MODE_IN_COMMUNICATION;
+ 			}else {
+-				return userWantSpeaker ? AudioManager.MODE_IN_CALL: AudioManager.MODE_NORMAL ;
++				return userWantSpeaker ? AudioManager.MODE_IN_COMMUNICATION: AudioManager.MODE_NORMAL ;
+ 			}
+ 		}
+ 		if(userWantBluetooth) {
+Index: src/com/csipsimple/utils/Compatibility.java
+===================================================================
+--- src/com/csipsimple/utils/Compatibility.java	(revision 2456)
++++ src/com/csipsimple/utils/Compatibility.java	(working copy)
+@@ -192,11 +192,11 @@
+             return "3";
+         }
+         if (android.os.Build.DEVICE.equalsIgnoreCase("blade")) {
+-            return Integer.toString(AudioManager.MODE_IN_CALL);
++            return Integer.toString(AudioManager.MODE_IN_COMMUNICATION);
+         }
+ 
+         if (!isCompatible(5)) {
+-            return Integer.toString(AudioManager.MODE_IN_CALL);
++            return Integer.toString(AudioManager.MODE_IN_COMMUNICATION);
+         }
+ 
+         return Integer.toString(AudioManager.MODE_NORMAL);

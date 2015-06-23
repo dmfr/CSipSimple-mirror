@@ -1,0 +1,4517 @@
+<!DOCTYPE html>
+<html><head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ 
+ <meta name="ROBOTS" content="NOARCHIVE">
+ 
+ <link rel="icon" type="image/vnd.microsoft.icon" href="https://ssl.gstatic.com/codesite/ph/images/phosting.ico">
+ 
+ 
+ <link rel="canonical" href="https://code.google.com/p/csipsimple/wiki/HowToBuild">
+ 
+ <script async="" src="HowToBuild%20-%20csipsimple%20-%20This%20page%20explains%20how%20to%20build%20the%20application.%20-%20SIP%20application%20for%20Android%20devices%20-%20Google%20Project%20Hosting_files/cbgapi.loaded_0"></script><script gapi_processed="true" src="HowToBuild%20-%20csipsimple%20-%20This%20page%20explains%20how%20to%20build%20the%20application.%20-%20SIP%20application%20for%20Android%20devices%20-%20Google%20Project%20Hosting_files/plusone.js" async="" type="text/javascript"></script><script type="text/javascript">
+ 
+ 
+ 
+ 
+ var codesite_token = null;
+ 
+ 
+ var CS_env = {"domainName": null, "assetHostPath": "https://ssl.gstatic.com/codesite/ph", "relativeBaseUrl": "", "assetVersionPath": "https://ssl.gstatic.com/codesite/ph/8599073060794244502", "projectName": "csipsimple", "projectHomeUrl": "/p/csipsimple", "profileUrl": null, "token": null, "loggedInUserEmail": null};
+ var _gaq = _gaq || [];
+ _gaq.push(
+ ['siteTracker._setAccount', 'UA-18071-1'],
+ ['siteTracker._trackPageview']);
+ 
+ _gaq.push(
+ ['projectTracker._setAccount', 'UA-9955132-3'],
+ ['projectTracker._trackPageview']);
+ 
+ (function() {
+ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+ })();
+ 
+ </script><script src="HowToBuild%20-%20csipsimple%20-%20This%20page%20explains%20how%20to%20build%20the%20application.%20-%20SIP%20application%20for%20Android%20devices%20-%20Google%20Project%20Hosting_files/ga.js" async="" type="text/javascript"></script>
+ 
+ 
+ <title>HowToBuild - 
+ csipsimple -
+ 
+ This page explains how to build the application. - 
+ SIP application for Android devices - Google Project Hosting
+ </title>
+ <link type="text/css" rel="stylesheet" href="HowToBuild%20-%20csipsimple%20-%20This%20page%20explains%20how%20to%20build%20the%20application.%20-%20SIP%20application%20for%20Android%20devices%20-%20Google%20Project%20Hosting_files/core.css">
+ 
+ <link type="text/css" rel="stylesheet" href="HowToBuild%20-%20csipsimple%20-%20This%20page%20explains%20how%20to%20build%20the%20application.%20-%20SIP%20application%20for%20Android%20devices%20-%20Google%20Project%20Hosting_files/ph_detail.css">
+ 
+ 
+ 
+ <link type="application/atom+xml" rel="alternate" href="https://code.google.com/feeds/p/csipsimple/svnchanges/basic?path=/wiki/HowToBuild.wiki">
+ 
+ 
+<!--[if IE]>
+ <link type="text/css" rel="stylesheet" href="https://ssl.gstatic.com/codesite/ph/8599073060794244502/css/d_ie.css" >
+<![endif]-->
+ <style type="text/css">
+ .menuIcon.off { background: no-repeat url(https://ssl.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 -42px }
+ .menuIcon.on { background: no-repeat url(https://ssl.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 -28px }
+ .menuIcon.down { background: no-repeat url(https://ssl.gstatic.com/codesite/ph/images/dropdown_sprite.gif) 0 0; }
+ 
+ 
+ #maincol {
+ padding-top: 0;
+ padding-bottom: 0;
+ }
+
+ 
+ </style>
+</head>
+<body class="t6">
+<script type="text/javascript">
+ window.___gcfg = {lang: 'en'};
+ (function() 
+ {var po = document.createElement("script");
+ po.type = "text/javascript"; po.async = true;po.src = "https://apis.google.com/js/plusone.js";
+ var s = document.getElementsByTagName("script")[0];
+ s.parentNode.insertBefore(po, s);
+ })();
+</script>
+<div class="headbg">
+
+ <div id="gaia">
+ 
+
+ <span>
+ 
+ 
+ <a href="#" id="projects-dropdown" onclick="return false;"><u>My favorites</u> <small>▼</small></a>
+ | <a href="https://www.google.com/accounts/ServiceLogin?service=code&amp;ltmpl=phosting&amp;continue=https%3A%2F%2Fcode.google.com%2Fp%2Fcsipsimple%2Fwiki%2FHowToBuild&amp;followup=https%3A%2F%2Fcode.google.com%2Fp%2Fcsipsimple%2Fwiki%2FHowToBuild" onclick="_CS_click('/gb/ph/signin');"><u>Sign in</u></a>
+ 
+ </span>
+
+ </div>
+
+ <div class="gbh" style="left: 0pt;"></div>
+ <div class="gbh" style="right: 0pt;"></div>
+ 
+ 
+ <div style="height: 1px"></div>
+<!--[if lte IE 7]>
+<div style="text-align:center;">
+Your version of Internet Explorer is not supported. Try a browser that
+contributes to open source, such as <a href="http://www.firefox.com">Firefox</a>,
+<a href="http://www.google.com/chrome">Google Chrome</a>, or
+<a href="http://code.google.com/chrome/chromeframe/">Google Chrome Frame</a>.
+</div>
+<![endif]-->
+
+ <div style="font-weight:bold; color:#a03; padding:5px; margin-top:10px; text-align:center; background:#ffeac0;">
+ We have some <a href="https://groups.google.com/forum/#%21topic/google-code-hosting/Gh3kl9MrzY4">known issues</a> with hg repositories.
+ 
+ </div>
+
+
+
+ <table style="padding:0px; margin: 0px 0px 10px 0px; width:100%" itemscope="" itemtype="http://schema.org/CreativeWork" cellpadding="0" cellspacing="0">
+ <tbody><tr style="height: 58px;">
+ 
+ 
+ 
+ <td id="plogo">
+ <link itemprop="url" href="https://code.google.com/p/csipsimple">
+ <a href="https://code.google.com/p/csipsimple/">
+ 
+ 
+ <img src="HowToBuild%20-%20csipsimple%20-%20This%20page%20explains%20how%20to%20build%20the%20application.%20-%20SIP%20application%20for%20Android%20devices%20-%20Google%20Project%20Hosting_files/logo.png" alt="Logo" itemprop="image">
+ 
+ </a>
+ </td>
+ 
+ <td style="padding-left: 0.5em">
+ 
+ <div id="pname">
+ <a href="https://code.google.com/p/csipsimple/"><span itemprop="name">csipsimple</span></a>
+ </div>
+ 
+ <div id="psum">
+ <a id="project_summary_link" href="https://code.google.com/p/csipsimple/"><span itemprop="description">SIP application for Android devices</span></a>
+ 
+ </div>
+ 
+ 
+ </td>
+ <td style="white-space:nowrap;text-align:right; vertical-align:bottom;">
+ 
+ <form action="/hosting/search">
+ <input size="30" name="q" type="text">
+ 
+ <input name="projectsearch" value="Search projects" type="submit">
+ </form>
+ 
+ </td></tr>
+ </tbody></table>
+
+</div>
+
+ 
+<div id="mt" class="gtb"> 
+ <a href="https://code.google.com/p/csipsimple/" class="tab ">Project&nbsp;Home</a>
+ 
+ 
+ 
+ 
+ 
+ 
+ <a href="https://code.google.com/p/csipsimple/wiki/FAQ?tm=6" class="tab active">Wiki</a>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <a href="https://code.google.com/p/csipsimple/source/checkout" class="tab ">Source</a>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <a href="https://code.google.com/export-to-github/export?project=csipsimple">
+ <button>Export to GitHub</button>
+ 
+ </a>
+ 
+ 
+ 
+ 
+ 
+ <div class="gtbc"></div>
+</div>
+<table class="st" width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
+ <tbody><tr>
+ 
+ 
+ 
+ <td class="subt">
+ <div class="issueDetail">
+<div class="isf">
+ 
+ <span class="inIssueList"> 
+ <span>Search</span>
+ <form action="/p/csipsimple/w/list" method="GET" style="display:inline">
+ <select id="can" name="can">
+ <option disabled="disabled">Search within:</option>
+ 
+ <option value="1">&nbsp;All wiki pages</option>
+ <option value="3">&nbsp;Featured pages</option>
+ <option value="2" selected="selected">&nbsp;Current pages</option>
+ 
+ 
+ <option value="4">&nbsp;Deprecated pages</option>
+ 
+ </select>
+ <span>for</span>
+ <span id="qq"><input size="38" id="searchq" name="q" autocomplete="off" type="text"></span>
+ 
+ 
+ 
+ <input value="Search" type="submit">
+ </form>
+ </span>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+</div>
+</div>
+
+ </td>
+ 
+ 
+ 
+ 
+ 
+ 
+ <td class="bevel-right" valign="top" align="right"></td>
+ </tr>
+</tbody></table>
+
+
+<script type="text/javascript">
+ var cancelBubble = false;
+ function _go(url) { document.location = url; }
+</script>
+<div id="maincol" style="padding:0 3px 3px 0; margin:0">
+
+ 
+
+
+
+
+
+
+ 
+<style type="text/css">
+ #wikimaincol { padding-top: 6px; padding-left:1em}
+ #sidebarcontainer {
+ padding: 1.5em 2px 2px 2px;
+ min-width: 15em;
+ max-width: 20em;
+ overflow:hidden;
+}
+ .sidebartop ul { margin:0 0 0 .5em; padding-left:0 !important; list-style:none}
+ .sidebartop ul ul { margin-left:1em; padding-left:0; list-style:none; display:none}
+ .sidebartop li { margin:0 0 2px 0; padding:1px; padding-left:14px; cursor:pointer}
+ .sidebartop li a { padding:2px}
+ .sidebartop li { background: url(https://ssl.gstatic.com/codesite/ph/images/plus.gif) no-repeat 1px 3px}
+ .sidebartop li.treeopen { background: url(https://ssl.gstatic.com/codesite/ph/images/minus.gif) no-repeat 1px 3px}
+ .sidebartop li.treeleaf { background:none}
+ .currentpagelink { 
+ font-weight: bold;
+ text-decoration: none;
+ color: black !important; 
+ background: #c3d9ff;
+ }
+ .sidebartop ul.treeleafcontainer { display:block;}
+ .sidebarcontent { 
+ vertical-align:top;
+ padding-right: 3px;
+ border-right: 2px solid #ccc;
+ }
+</style>
+
+
+
+ <style type="text/css">
+ .delcom { background: #e8e8e8 }
+ .commentcontent {
+ margin: 2em;
+ padding: 0px 10px;
+ width: 66em;
+ }
+ .artifactcomment {
+ border-top: 3px solid #c3d9ff;
+ }
+ #commentform {
+ border-top: 3px solid #c3d9ff;
+ }
+ </style>
+
+<div id="wikipage">
+<table>
+ <tbody><tr>
+ 
+ 
+ <td class="sidebarcontent">
+ <div class="vt expand" id="wikisidebar">
+ <div>
+ 
+ <div style="float:right;">
+ <a class="ifExpand" style="font-size:130%; color:blue; text-decoration:none" href="#" onclick="_DW_toggleSidebar(this); return false;" title="Hide sidebar"><b>‹‹</b></a>
+ </div>
+ <div class="ifCollapse" style="padding:0 2px">
+ <a style="font-size:130%; color:blue; text-decoration:none" href="#" onclick="_DW_toggleSidebar(this); return false;" title="Show sidebar"><b>››</b></a>
+ </div>
+ 
+ 
+ <div id="sidebarcontainer" class="sidebartop ifExpand">
+ <ul class="treeleafcontainer"><li>Troubleshooting  </li><ul><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/FAQ">FAQ</a> </li><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/HowToInstallDevVersion">Install latest version</a> </li><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/HowToCollectLogs">How to get logs</a> </li><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/ExpertSettingMode">The Expert setting mode</a> </li><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/Tutorials">Tutorials</a> </li></ul><li>Use the power of the application </li><ul><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/UsingFilters">Using filtering rules</a> </li></ul><li class="treeopen">For developers </li><ul class="treeleafcontainer"><li class="treeleaf"><a class="currentpagelink" href="https://code.google.com/p/csipsimple/wiki/HowToBuild">How to build the app</a> </li><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/Licensing">The application licenses</a> </li><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/Translations">Translations</a> </li></ul><li>For SIP providers </li><ul><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/AddASipProvider">How to add our service to CSipSimple?</a> </li><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/Licensing">The application licenses</a> </li><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/BrandedVersionsOfCSipSimple">Branded versions of CSipSimple</a> </li><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/Donate">Support the project by donating</a> </li></ul><li>About </li><ul><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/WhatIsSIP">What is SIP?</a> </li><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/Screenshots">Screenshots</a> </li><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/PermissionsUse">What permissions this app uses?</a> </li><li class="treeleaf"><a href="https://code.google.com/p/csipsimple/wiki/Donate">Donate</a> </li></ul></ul>
+ </div>
+ </div>
+</div>
+
+ </td>
+ 
+ <td style="vertical-align:top; padding-left:5px">
+ 
+ <div id="wikiheader">
+ 
+ <span style="font-size:120%;font-weight:bold">HowToBuild</span>
+ &nbsp;
+ <div> 
+ 
+ <i>This page explains how to build the application.</i>
+ 
+ 
+ <br>
+ 
+ <a class="label" style="padding-top: 2px" href="https://code.google.com/p/csipsimple/w/list?q=label:Phase-Implementation" title="Developers' guide">Phase-Implementation</a>
+ 
+ 
+ 
+ <div id="wikiauthor" style="float:right">
+ Updated <span title="Tue Apr 30 01:31:28 2013">
+ Apr 30, 2013</span>
+ 
+ by 
+
+ <a class="userlink" href="https://code.google.com/u/112370721776696978287/">business...@gmail.com</a>
+ 
+ </div>
+ </div>
+ </div>
+ 
+ <div id="wikicontent">
+ <div class="vt" id="wikimaincol">
+ <h1><a name="IMPORTANT"></a>IMPORTANT<a href="#IMPORTANT" class="section_anchor"></a></h1><p>For any question on how to build <strong>PLEASE</strong> join the <a href="http://groups.google.com/group/csipsimple-dev/" rel="nofollow">development group</a> Also, if you build CSipSimple, you should first read the <a href="https://code.google.com/p/csipsimple/wiki/Licensing">Licensing</a> wiki page </p><h1><a name="Introduction"></a>Introduction<a href="#Introduction" class="section_anchor"></a></h1><p>The application has two distinct parts :  </p><ul><li>The pjsip dynamic library part that produce a .so (to be more precise a .so by android target). </li><li>The java application that produce a .apk (and can be installed on your android device). </li></ul><p></p><p>If
+ you are a java developer and you are not interested in building the sip
+ stack, there is an alternate - not easy to maintain - way to build by 
+getting auto-generated swig java class and the dynamic library from 
+nightly build website. Please search the dev google group to get info 
+about this method that is not recommended. </p><p>Some very important note : <strong>CSipSimple is released under GPL license</strong>.  Be really aware about what does that mean before developing. Read <a href="https://code.google.com/p/csipsimple/wiki/Licensing">Licensing</a> wiki page.  </p><p>So if you plan to improve CSipSimple and redistribute it, you <strong>MUST</strong>
+ release your source code. As we (CSipSimple developers) are open to any
+ contribution, I'd advise you to directly contribute the CSipSimple 
+project. All contributions are welcome !!! </p><p></p><ul><li><a href="#IMPORTANT">IMPORTANT</a></li><li><a href="#Introduction">Introduction</a></li><li><a href="#System_and_Software_Requirements">System and Software Requirements</a></li><ul><li><a href="#For_Linux">For Linux</a></li><li><a href="#For_MacOSX">For MacOSX</a></li><li><a href="#For_Windows">For Windows</a></li><li><a href="#With_a_virtual_machine">With a virtual machine</a></li></ul><li><a href="#Finalize_your_SDK_installation">Finalize your SDK installation</a></li><li><a href="#Checkout_source_code">Checkout source code</a></li><li><a href="#Build_native_library">Build native library</a></li><ul><li><a href="#Without_building_the_native_library">Without building the native library</a></li></ul><li><a href="#Build_apk">Build apk</a></li><ul><li><a href="#Setup/import_application_in_your_IDE_%28Optional%29">Setup/import application in your IDE (Optional)</a></li><li><a href="#Using_ant_%28Optional%29">Using ant (Optional)</a></li></ul><li><a href="#Updates">Updates</a></li><li><a href="#Fast_way_to_develop_a_GPL_branded_version">Fast way to develop a GPL branded version</a></li><li><a href="#Integrate_an_existing_pjsip_module">Integrate an existing pjsip module</a></li><li><a href="#Build_with_pjsip_1.x">Build with pjsip 1.x</a></li></ul> <p></p><h1><a name="System_and_Software_Requirements"></a>System and Software Requirements<a href="#System_and_Software_Requirements" class="section_anchor"></a></h1><h2><a name="For_Linux"></a>For Linux<a href="#For_Linux" class="section_anchor"></a></h2><p>You'll need following package <i>you may need to adapt depending to your distribution packages names</i> </p><pre class="prettyprint"><span class="pln">subversion git quilt unzip wget swig2</span><span class="pun">.</span><span class="lit">0</span><span class="pln"> python make yasm</span></pre><p>You
+ also have to install the android NDK and the android SDK. I do not 
+details here how to install android NDK and SDK. Please read Android 
+documentations about that : </p><ul><li><a href="http://developer.android.com/sdk/ndk/index.html" rel="nofollow">Android NDK doc</a> </li><li><a href="http://developer.android.com/sdk/installing.html" rel="nofollow">Android SDK doc</a> </li></ul>To install correctly the android NDK, please add the NDK to your path. I usually recommend to add these lines to your .bashrc : <p></p><pre class="prettyprint"><span class="kwd">export</span><span class="pln"> ANDROID_NDK</span><span class="pun">=</span><span class="str">/_path_to/</span><span class="pln">android</span><span class="pun">-</span><span class="pln">ndk</span><span class="pun">-</span><span class="pln">linux</span><span class="pun">/</span><span class="pln"><br></span><span class="kwd">export</span><span class="pln"> ANDROID_SDK</span><span class="pun">=</span><span class="str">/_path_to/</span><span class="pln">android</span><span class="pun">-</span><span class="pln">sdk</span><span class="pun">-</span><span class="pln">linux</span><span class="pun">/</span><span class="pln"><br></span><span class="kwd">export</span><span class="pln"> PATH</span><span class="pun">=</span><span class="pln">$PATH</span><span class="pun">:</span><span class="pln">$ANDROID_SDK</span><span class="pun">/</span><span class="pln">tools</span><span class="pun">:</span><span class="pln">$ANDROID_SDK</span><span class="pun">/</span><span class="pln">platform</span><span class="pun">-</span><span class="pln">tools</span><span class="pun">:</span><span class="pln">$ANDROID_NDK</span></pre><p>Anyway the naming of ANDROID_NDK export is important in the build of one part of the application. You can also do that only at build time, but if you use to develop for android, it's a good idea to do that. </p><p>Don't forget to install SDK and NDK dependencies as well. For example, on ubuntu 64bits system you will need <tt>ia32-libs</tt> for both NDK and SDK. </p><h2><a name="For_MacOSX"></a>For MacOSX<a href="#For_MacOSX" class="section_anchor"></a></h2><p><i>Thx to Benjamin and Magnus for the contrib on these instructions</i> </p><p>For main instructions it's almost the same as for Linux.  </p><p>Packages are a little bit more complicated to get however. The two more difficult to get are quilt and swig2.0. </p><p>DUE TO A BUG IN MACPORT with quilt 0.6 -- DON'T USE THE FOLLOWING. </p><p><i>To install quilt you should install MacPorts first (<a href="http://www.macports.org/" rel="nofollow">http://www.macports.org</a>).  <a href="http://www.macports.org/install.php" rel="nofollow">Installation instructions</a></i> </p><p><i>If you work behind a proxy follow these instructions additionally <a href="http://www.oconnoat.com/blog/2009/03/18/macports-through-a-proxy/" rel="nofollow">MacPorts behind proxy</a></i> </p><p><i>And then install quilt using :</i> </p><pre class="prettyprint"><span class="pln">sudo port selfupdate<br>sudo port install quilt</span></pre><p><strong>Instead build it from source</strong> </p><p>Download quilt from latest source available here : <a href="http://download.savannah.gnu.org/releases/quilt/" rel="nofollow">http://download.savannah.gnu.org/releases/quilt/</a> And then execute </p><pre class="prettyprint"><span class="pun">./</span><span class="pln">configure </span><span class="com"># optionally add prefix here to be able to install in your env</span><span class="pln"><br>make<br>make install </span><span class="com"># optionally do that in sudo if target is read only for the current user</span></pre><p>To install swig 2.0 : download from source available here : <a href="http://www.swig.org/download.html" rel="nofollow">http://www.swig.org/download.html</a> And then execute </p><pre class="prettyprint"><span class="pun">./</span><span class="pln">configure </span><span class="com"># optionally add prefix here to be able to install in your env</span><span class="pln"><br>make<br>make install </span><span class="com"># optionally do that in sudo if target is read only for the current user</span></pre><p>Finally, since csipsimple make file has some crappy hard coded link to swig tool for now, you have to add a symbolic link to allow your system to recognize swig2.0 to be the same than swig. The faster way is probably to make a symlink: </p><pre class="prettyprint"><span class="pln">sudo ln </span><span class="pun">-</span><span class="pln">s </span><span class="pun">&lt;</span><span class="pln">path to swig</span><span class="pun">&gt;</span><span class="pln"> </span><span class="str">/opt/</span><span class="kwd">local</span><span class="pun">/</span><span class="pln">bin</span><span class="pun">/</span><span class="pln">swig2</span><span class="pun">.</span><span class="lit">0</span></pre><p>Other packages (subversion git unzip wget python make) should be easier to install but are also required on Mac. </p><p>Continue instructions of Linux build. It should go the same way once packages are installed. </p><h2><a name="For_Windows"></a>For Windows<a href="#For_Windows" class="section_anchor"></a></h2><p>I don't not explain how to build for Windows because if you really want to develop you probably don't and shouldn't use Windows.  However it should be possible to build it for Windows too. To do so, you must understand Makefile syntax and have a look on commands to run to build the project. It's most about checkouting other projects using git, getting zip files from elsewhere, applying patches, and generating a swig interface. Maybe using cygwin it's easier.  </p><p>So, in this case the easiest way is to use the virtual machine as described in following chapter. </p><h2><a name="With_a_virtual_machine"></a>With a virtual machine<a href="#With_a_virtual_machine" class="section_anchor"></a></h2><p>If you want to have an environment with everything required for CSipSimple you can use a Virtual Machine. Thanks to Dennis work, there is one ready for direct use : </p><p><a href="https://docs.google.com/file/d/0ByFooYVveHXdYVV6eVhaUElWaGM/edit?pli=1" rel="nofollow">CSipSimple-CompilerVM.vmdk</a> </p><p>You can get root privilege with sudo command. The password is equals to the username, which should be "user". </p><p>Using, this machine, you should still read the following step for your complete understand of how things work, but don't need to run the commands since everything was already done.   The step about how to update may be necessary to read if you want to be able to update to latest source code. </p><h1><a name="Finalize_your_SDK_installation"></a>Finalize your SDK installation<a href="#Finalize_your_SDK_installation" class="section_anchor"></a></h1><p>Launch android sdk manager to download and install the SDK of versions listed as target in files : <a href="http://code.google.com/p/csipsimple/source/browse/trunk/CSipSimple/project.properties" rel="nofollow">CSipSimple project.properties</a> and <a href="http://code.google.com/p/csipsimple/source/browse/trunk/ActionBarSherlock/project.properties" rel="nofollow">ABS project.properties</a>. </p><h1><a name="Checkout_source_code"></a>Checkout source code<a href="#Checkout_source_code" class="section_anchor"></a></h1><p>We assume here you are in your folder where you put dev with a shell. </p><p><i>Start with a checkout of source code</i> </p><pre class="prettyprint"><span class="com"># Checkout CSipSimple incl. all svn dependancies</span><span class="pln"><br>svn checkout http</span><span class="pun">:</span><span class="com">//csipsimple.googlecode.com/svn/trunk/ CSipSimple-trunk</span></pre><p>It will create a folder <strong>CSipSimple-trunk</strong> with the following folder structure containing all source code and SVN dependencies: </p><ul><li>ActionBarSherlock: is a backward compatible way to use Fragments and Action Bar pattern of android newer versions </li><li>CSipSimple: The CSipSimple-App source code </li><li>CSipSimpleBranded </li><li>CSipSimpleCodecG729 </li><li>CSipSimpleCodecPack </li><li>CSipSimpleVideoPlugin </li></ul><p></p><h1><a name="Build_native_library"></a>Build native library<a href="#Build_native_library" class="section_anchor"></a></h1><p><i>Go into source folder</i> </p><pre class="prettyprint"><span class="pln">cd </span><span class="typ">CSipSimple</span><span class="pun">-</span><span class="pln">trunk</span><span class="pun">/</span><span class="typ">CSipSimple</span></pre><p><i>Launch make to build the native part of the library and dependancies</i> </p><pre class="prettyprint"><span class="pln">make</span></pre><p><i>If needed build video support libary (Optional)</i> </p><pre class="prettyprint"><span class="pln">make </span><span class="typ">VideoLibs</span></pre><p><i>If needed build CodecPackLibs (Optional)</i> </p><pre class="prettyprint"><span class="pln">make </span><span class="typ">CodecPackLibs</span></pre><p><i>If needed build CodecG729 (Optional)</i> </p><pre class="prettyprint"><span class="pln">make </span><span class="typ">CodecG729</span></pre><p><i>Note that you can use make -j4 to make things go faster if your computer allow that</i> </p><p>If you get a problem at this point, it could be because there is a missing package on your system install. Since at this point it will do git, swig2.0, wget, unzip, quilt... there is chance one of these apps is missing. If so, try to get that installed on your system first. About swig you may have to build and install it by yourself because version 2.0 is recent. </p><p>If everything goes well, congrats, you have created the native libraries for CSipSimple (it will also produce native libs for plugins apps). </p><h2><a name="Without_building_the_native_library"></a>Without building the native library<a href="#Without_building_the_native_library" class="section_anchor"></a></h2><p><strong>Alternate way -- most developers should ignore this section</strong> </p><p>This method is not officially supported. However it's helpful if you have not knowledge in native development or GNU toolchains. </p><p>The native library build produce two things : </p><ul><li>swig auto generated java/jni bindings class. </li><li>dynamic native library .so files </li></ul>To get the java/jni bindings class get the archive file here :  <p></p><p><a href="http://nightlies.csipsimple.com/dev_helpers/org.tar.gz" rel="nofollow">org.tar.gz</a> and unpack it to have the org.pjsip package in the src folder of CSipSimple. </p><p>To get the .so files, download latest nightly build from nightly build website and unpack the apk file (apk files are just zip files). Then get lib/<i>ARCH</i>/<strong>.so files and copy it into CSipSimple libs/<i>ARCH</i>/</strong>.so </p><h1><a name="Build_apk"></a>Build apk<a href="#Build_apk" class="section_anchor"></a></h1><p>There is several ways to build the apk once the native library is built. You can either use an IDE that integrates android development toolchains (described in details for Eclipse) or you can use Ant (for command line environments). </p><h2><a name="Setup/import_application_in_your_IDE_(Optional)"></a>Setup/import application in your IDE <i>(Optional)</i><a href="#Setup/import_application_in_your_IDE_%28Optional%29" class="section_anchor"></a></h2><p>You can now open the projects with Eclipse or your preferred java IDE that is able to build a regular android application.  </p><p>Import the projects into <strong>Eclipse</strong> as an Android projects (right click &gt; import &gt; Android project from source) and select the folder <strong>CSipSimple-trunk</strong>. </p><p>Pick at least <strong>SipHome</strong> and <strong>ActionBarSherlock</strong>. Add <strong>CSipSimpleXXX</strong>-projects if needed. </p><p>Then when ADT plugin will ask you which android version you'd like to link on, you should check the "project.properties" file of each project you are importing (do that both for CSipSimple and ActionBarSherlock). You can have a look to online files here : <a href="http://code.google.com/p/csipsimple/source/browse/trunk/CSipSimple/project.properties" rel="nofollow">CSipSimple project.properties</a> and <a href="http://code.google.com/p/csipsimple/source/browse/trunk/ActionBarSherlock/project.properties" rel="nofollow">ABS project.properties</a>. Obviously you need these versions to be installed by Android SDK Manager if not already done. </p><p>Don't be worried about the fact it's high values! It does <strong>not</strong> mean that your app will not run with older android versions. Actually, it will be able to run on android 1.6! <strong>MinSdk</strong> version and <strong>targetVersion</strong> are not linked. Backward compatibility is ensured by code not by the lib you link on while building. </p><p>Finally, you need to add the project dependencies to "SipHome", which is at least "ActionBarSherlock" and optional native lib projects. In Eclipse: right-click on "SipHome"-&gt; Properties -&gt; Java Build Path -&gt; Projects. </p><p>If you encounter some problems about override of methods, ensure that your Eclipse env setup projects for "java 1.6" or upper. -You should also check that per project if necessary- </p><p>You should now be able to launch the application as an Android application. </p><h2><a name="Using_ant_(Optional)"></a>Using ant <i>(Optional)</i><a href="#Using_ant_%28Optional%29" class="section_anchor"></a></h2><p>This is particularly useful for a pure command line environment. It's used on the automatic nightly build server for example. </p><p>Directory structure: </p><ul><li>./ActionBarSherlock </li><li>./CSipSimple </li></ul><p></p><p>Steps: </p><ul><li>Install ant </li><li>Setup SDK and NDK path (see above) </li><li>(if needed) Built native lib part: in ./CSipSimple execute: make  </li><li>in ./ActionBarSherlock execute: <tt>android update project -p ./</tt> </li><li>in ./CSipSimple execute: <tt>android update project -p ./</tt> </li><li>Setup code signing for .apk </li><ul><li>(if needed) <a href="http://developer.android.com/tools/publishing/app-signing.html" rel="nofollow">Create keystore: keytool</a> </li><li><a href="http://developer.android.com/tools/building/building-cmdline.html" rel="nofollow">Configure code signing in ant.properties </a> </li></ul><li>in ./CSipSimple execute: ant release </li><li>./CSipSimple/bin/CSipSimple-release.apk </li></ul><p></p><p>You have to create your own ant script based integrating ant scripts from the SDK. You can get inspired of what is produced by command line tool of the sdk <a href="http://developer.android.com/guide/developing/projects/projects-cmdline.html" rel="nofollow">http://developer.android.com/guide/developing/projects/projects-cmdline.html</a>. </p><p>Some interesting tutorial to follow : <a href="http://www.androidengineer.com/2010/06/using-ant-to-automate-building-android.html" rel="nofollow">http://www.androidengineer.com/2010/06/using-ant-to-automate-building-android.html</a>. </p><p>You can also add additional ant task such as the one made for automatic revision in code number of the manifest.  </p><h1><a name="Updates"></a>Updates<a href="#Updates" class="section_anchor"></a></h1><p>If you would like to update your checkout of CSipSimple-trunk  to the current SVN revision use the provided <strong>make tasks</strong>! This command will remove all applied quilt patches from SVN dependencies, update the SVN dependencies and CSipSimple-repository, and re-apply the new patches. All native libraries must be re-build. </p><pre class="prettyprint"><span class="pln">make update </span><span class="pun">&amp;&amp;</span><span class="pln"> make</span></pre><p>If you want to automate the build of the native part as well as the build of the android project, you can do that by installing CDT on eclipse and then on the android project do : New Project-&gt;Other-&gt;C++-&gt;Convert to C++ and tells it's a makefile project. </p><hr><h1><a name="Fast_way_to_develop_a_GPL_branded_version"></a>Fast way to develop a GPL branded version<a href="#Fast_way_to_develop_a_GPL_branded_version" class="section_anchor"></a></h1><p><a href="https://code.google.com/p/csipsimple/wiki/BuildGplBrandedVersion">BuildGplBrandedVersion</a> </p><h1><a name="Integrate_an_existing_pjsip_module"></a>Integrate an existing pjsip module<a href="#Integrate_an_existing_pjsip_module" class="section_anchor"></a></h1><p><a href="https://code.google.com/p/csipsimple/wiki/IntegrateExistingPjsipModule">IntegrateExistingPjsipModule</a> </p><hr><h1><a name="Build_with_pjsip_1.x"></a>Build with pjsip 1.x<a href="#Build_with_pjsip_1.x" class="section_anchor"></a></h1><p><a href="https://code.google.com/p/csipsimple/wiki/OldWayToBuild">OldWayToBuild</a> wiki page gives for reference the old way to build the library on older csipsimple versions. It's not supported anymore in development process. </p>
+ </div>
+ </div>
+ </td></tr><tr>
+</tr></tbody></table>
+ </div>
+
+
+ 
+ <div id="wikicommentcol">
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+<div class="collapse">
+
+
+ 
+
+
+<div id="commentlist">
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/109731209506631253297/">winfa...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Jun 14 05:34:50 2010">Jun 14, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Great job! I worked according to above, but it produced the .so under android-3. Could you tell me how I change the target platform for android API level 7 or 8? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Jun 14 05:54:28 2010">Jun 14, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Right now, it's not needed anymore to produce a custom library for each android version. </p><p>At the beginning of the project I tried using private medialib API so it was necessary. But now, android-3 target will produce same thing than android-7 or 8 target /or at least something compatible. </p><p>Btw, if you want to force the use of a target, it's quietly simple. </p><p>While you launch make add the APP_PLATEFORM argument. For example : </p><pre class="prettyprint"><span class="pln">make APP</span><span class="pun">=</span><span class="pln">pjsip APP_PLATFORM</span><span class="pun">=</span><span class="pln">android</span><span class="pun">-</span><span class="lit">7</span><span class="pln"> NDK_LOG</span><span class="pun">=</span><span class="kwd">true</span><span class="pln"> V</span><span class="pun">=</span><span class="lit">1</span></pre><p>You must have the folder android-7 in your NDK "build/prebuilt" directory. </p><p>It's a common feature from the android NDK. My modified NDK will produce things in separate directories which was really useful when a lib was needed by target android version. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/113273019165865087295/">Jerry1....@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Sep  7 08:02:39 2010">Sep 7, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Hi There, </p><p>If I want to use the libpjsipjni.so I built, where (which directory) should I copy the .so lib so that the .apk package to pickup the file? </p><p>thanks, Jerry </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Sep  7 08:08:47 2010">Sep 7, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>&gt;&gt; libs/armeabi/libpjsipjni.so of the android project </p><p>P.S. : in the current svn version target has been changed for built libs, there are now build in ../CSipSimple/libs/armeabi/libpjsipjni.so =&gt; so that if you checkout directly the trunk (pjsip_android &amp; CSipSimple) it will put the built file directly on the Android project and with eclipse everything will be automatically done. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/114623136352566193788/">dothangb...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Oct 19 02:59:11 2010">Oct 19, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Thanks for the tutorial.  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/101502723921881168704/">xCh...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Oct 25 03:44:54 2010">Oct 25, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>@r3gis.3R I have about 100Gb free space on my drive </p><p>How can I fix this issue with non-case-sensitive file system? I also tried to do checkout on Mac and got the same result </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/101502723921881168704/">xCh...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Oct 25 03:54:04 2010">Oct 25, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Or may be there is another way to get sources? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Oct 25 04:08:53 2010">Oct 25, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Yes there is a mirror of the project on Lauchpad. <a href="http://bazaar.launchpad.net/%7Er3gis-r3gis/csipsimple/trunk/files/head%3A/pjsip_android/" rel="nofollow">http://bazaar.launchpad.net/~r3gis-r3gis/csipsimple/trunk/files/head%3A/pjsip_android/</a> </p><p>You have to use bazar to checkout. So maybe better regarding svn cases issues. bzr branch lp:csipsimple (Don't know the equivalent on mac or windows, but there is probably one... I'm running linux... so much easier to develop!! ;) ) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Oct 30 06:08:33 2010">Oct 30, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>@dengx2.com : you should rebuild the entiere application. As the apk I distribute are made to be directly installed (signed) you can't change files inside. Just rebuild the java app... that's not too hard to do ;) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/104499076087030830310/">marcello...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Dec  4 11:53:11 2010">Dec 4, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>after the changes today, the libpjsipjni.so will not be build successfully </p><p>StaticLibrary<a href="https://code.google.com/p/csipsimple/w/edit/StaticLibrary">?</a>  : libspeex.a SharedLibrary<a href="https://code.google.com/p/csipsimple/w/edit/SharedLibrary">?</a>  : libpjsipjni.so arm-eabi-gcc: ./build/platforms/android-3/arch-arm/usr/lib/libmissing.a: No such file or directory </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Dec  4 12:43:05 2010">Dec 4, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Ok libs was missing (eclipse doesn't add .a files automatically ;) ). So added in last revision. Could you confirm it works now? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/104499076087030830310/">marcello...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Dec  4 14:38:51 2010">Dec 4, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Yepp, build Server send a success Report :) Are you interested in automatic tls build? </p><p>Thx you for your gread job </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Dec  4 15:18:10 2010">Dec 4, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Lol :) That's exactly what I'm doing it right now :)  Thx for proposition but will be available soon :)... it's currently building on my server :  <a href="http://nightlies.csipsimple.com/" rel="nofollow">http://nightlies.csipsimple.com/</a> (will be available for TLS and armv4t ;) )  However if you want to publish url for your server, it will be welcome.  It's always interesting to have another source for users, if something goes wrong with my own server. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/104499076087030830310/">marcello...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sun Dec  5 12:51:06 2010">Dec 5, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Currently i only build TLS version <a href="http://csipsimple.ceschia.de/" rel="nofollow">http://csipsimple.ceschia.de</a> </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/114879890743923835178/">pad...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Dec 15 06:40:04 2010">Dec 15, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Yeah, I should have mentioned that I can build and run sample apps w/o any issues. </p><p>What else can I tell you? </p><p>I will try to collect up all the data I can about the environment and errors, but where can I send it? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">liuksm...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Thu Dec 16 13:38:33 2010">Dec 16, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>@papada I had same problem in Eclipse then I've configured  project_properties-&gt;java compiler-&gt;Enable project specific setting and I've choosen java 1.6 as default compliance setting  I did it two times and now it's ok. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/114879890743923835178/">pad...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Dec 16 14:33:59 2010">Dec 16, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Thanks liuksmith :)  now it compiles fine ... is this an Eclipse issue or a csipsimple issue?' </p><p>One more thing to fix and I should be good to get playing ... When the app starts, it wants to download a file and can't, so I'm in an endless loop ... download, next, download, next ... etc.   </p><p>I thought I saw a note about moving a file from the pjsip build ... off to find that now </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/114879890743923835178/">pad...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Dec 16 14:54:35 2010">Dec 16, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>I think this is what I'm looking for: </p><p><strong> If you have build the pjsip library, copy the .so generated by the build in the directory : libs/armeabi/libpjsipjni.so of the android project. </strong> Else the library will be automatically downloaded from internet at first run (and put into the files/ directory of the package on the device).  </p><p>so if I have /workspace/android/csipsimple/ as my project directory and my build of pjsip in /workspace/android/pjsip_android </p><p>So I should copy pjsip_android/libs/armeabi/libpjsipjni.so to where? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Dec 16 15:12:16 2010">Dec 16, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>To CSipSimple/libs/armeabi/libpjsipjni.so </p><p>You can also configure pjsip_android Application.mk to directly copy the output to the CSipSimple project. By default if you have checked out the entire trunk it should put libs in the right place. (The default target is ../CSipSimple/libs which is fine. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/114879890743923835178/">pad...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Dec 16 15:15:51 2010">Dec 16, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>I put the file libpjsipjin.so in /csipcimple/libs/armeabi/ and that didn't help. </p><p>Should it be in /csipcimple/libs/ instead? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Dec 16 15:30:53 2010">Dec 16, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>No, armeabi is for arm eabi compatible CPU armeabi-v7a folder for arm eabi v7a compatible devices etc... </p><p>One folder by CPU arch.  </p><p>In the manifest file did you change something? (debug mode?) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/114879890743923835178/">pad...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Dec 16 15:44:37 2010">Dec 16, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>I just freshly built this Ubuntu system 10.4 LTS (i386 -Dell D620), loaded all the dev tools, made sure I could compile some of the basic samples.   </p><p>Now I am trying to get your code loaded so I can try to add some functions/mods. I'm used to working with linux on the asterisk/firewall level and this is my first attempt at Eclipse and Android dev ... But I work with SIP as my primary job. </p><p>So to answer your other questions, I haven't changed anything yet, but I have lots of errors after I put the files and subfolders in /csipsimple/libs/ </p><p>Errors occurred during the build. </p><blockquote>Errors running builder 'Integrated External Tool Builder' on project 'csipsimple'. 
+<blockquote>Variable references empty selection: ${project_loc} 
+</blockquote>Variable references empty selection: ${project_loc} 
+</blockquote><p></p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Dec 16 16:11:24 2010">Dec 16, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>This one is probably linked to the locale or SVN version on your system :  I use little tool to update the manifest file to automatically propagate the svn revision to the manifest file. It make me save a lot of time but is not a really standard tool (half coded by me and half found on a blog of another project) ;) </p><p>You can disable it easily : remove the .externalToolBuilders folder in CSipSimple. It will remove the auto svn &lt;-&gt; manifest file update. </p><p>It will remove the error related to the external tool builder. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Dec 20 22:55:00 2010">Dec 20, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>Now you miss the native library file in the correct directory. As the java part does not find it in libs/armeabi it download it from the internet. But that is not compatible with the debug mode which require the native lib to be bundled in the apk. I do that cause most of the time (and here it's the case) production native lib (online version) is outdated. So just read this wiki page again (the first part) you'll have information about how to build native part.if you don't want to bother with native lib build you can also download the latest dev build from nightlies and extract the .so from the apk but you still need toread the page above to know where to put the .so file and to understand what you are doing ;) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/114879890743923835178/">pad...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Dec 21 09:08:37 2010">Dec 21, 2010</span>
+ <div>
+<div class="commentcontent">
+<p>regis, </p><p>Thanks for your help and patience.  I will work on this today and let you know. </p><p>BTW  I had a friend download the standard release of csipsimple on to his verizon (Samsung) handset and when he called me, he sounds like one of the Disney chipmunks to me, but I sound normal to him.  Any ideas??? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/106805790191765072521/">roberto....@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Mar  4 02:27:09 2011">Mar 4, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi. I can build and run the csipsimple application without problems if I use the downloaded library. When I used the lib built by myself the application crashes here: </p><blockquote>public synchronized static int create() { 
+<blockquote>return pjsuaJNI.create(); 
+</blockquote>} 
+</blockquote><p>it trows an null pointer exception. I followed your the instructions to download the lib and build it </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Mar  4 02:37:11 2011">Mar 4, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>@roberto : check that the build you generate yourself is put in the correct directory. Depending on your folders organisation you may have to modify the projet path in the Application.mk file to make the output directory be the CSipSimple (java part) directory. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/106805790191765072521/">roberto....@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Mar  4 02:39:56 2011">Mar 4, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Thank you for your replay. I think I put the .so file in the correct folder because I did it manually and I replaced the file that was already there and that works. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/106805790191765072521/">roberto....@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Mar  4 03:04:28 2011">Mar 4, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>In the meanwhile I have another question and I hope you can help me. I tried to use the package org.pjsip.pjsua in my own application.By using the downloaded library I managed to use the pjsip lib to register a UA. The problem is that when I call the function call_make_call I see another exception that I find weird. It's a NoClassDefFound<a href="https://code.google.com/p/csipsimple/w/edit/NoClassDefFound">?</a>. The class that can't be found is com.csipsimple.service.SipService<a href="https://code.google.com/p/csipsimple/w/edit/SipService">?</a>.  The  problem is that I don't understand where that class comes from because I don't have it in my code. Searching in the .so file I found the error message I could see in the log.  I can't find that string in my built library.  So the question is: why is the downloaded library looking for that class? And why the code under svn is not? Thank-you in advance Roberto </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/106805790191765072521/">roberto....@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Mar  4 03:46:18 2011">Mar 4, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>One thing I can add is that I see an error log from android_jni_dev complaining about the missing class but I cannot find that error string in the cpp file </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Mar  4 04:14:42 2011">Mar 4, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>You are probably not up to date either on the java or the cpp part. I recently change the way the native library ask the java part to setup audio mode to in call. Previously it was done by calling a static member of the SIP service defined in the java space.  It was not clean but quicker to develop. Now that I have more time for non-features implementation I have refactored this part to do something much more clean by calling back the Callback glue from the dev. </p><p>So update both <strong>java</strong> -I guess it's your java part that is not up to date- and c source to latest svn version, and it should work then. There is no magic, if nightly build server build and run, it means than latest SVN version are fine cause nightly build server acts automatically following a simple script that is more or less what is shown in this wiki page (more or less cause it builds several targets). </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/106805790191765072521/">roberto....@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Mar  4 06:06:09 2011">Mar 4, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>OK thank-you! Now it's clear why both things were not working... </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/104499076087030830310/">marcello...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Mar  4 22:21:37 2011">Mar 4, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>@r3gis </p><p>Can you give a short hint about MY_ANDROID_DEV flag in apps/pjsip/Application.mk? What does 1 or 2 mean? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Mar  5 03:41:13 2011">Mar 5, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>You're right I should explain a little bit more the Application.mk file. I'll update this page to reflect current dev status. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">khayer.b...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Fri Mar 25 08:46:33 2011">Mar 25, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>my project's developping a sip application in android &amp; I want to build on csipsimple, so i need documentation of different packages &amp; classes ... if you can advise me to build my code by which i started ... 10x </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Mar 25 15:08:46 2011">Mar 25, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>@khayer : are you aware about the fact csipsimple is under GPL license? You should read licensing wiki page and check you can release your project under GPL too. Other solution would be to use CSipSimple as a third party application that provide SIP. If you choose this method there is an API provided by csipsimple to allow third party application to use sip on android without redevelopping everything. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">khayer.b...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Mon Mar 28 04:30:31 2011">Mar 28, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>the license's in the form of a header that is added on top of each class. I saw the site where I can get it. so how can i use/find API CSipSimple as a third party. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/106513657510963127514/">Broi.jul...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Mar 28 09:22:40 2011">Mar 28, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi ! </p><p>I'm trying to make csipsimple run on my emulator. At the begining i had an error saying : Errors occurred during the build. Errors running builder 'Integrated External Tool Builder' on project 'csipsimple'. Variable references empty selection: ${project_loc}  Variable references empty selection: ${project_loc}  </p><p>I rode above that i should delete .externalToolBuilders in my project and did it but now i get : </p><p>Errors occurred during the build. Errors running builder 'Integrated External Tool Builder' on project 'CSipSimple'. The builder launch configuration could not be found. The builder launch configuration could not be found. </p><p>Could you please help me ? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/101412257347814268900/">zahir.ab...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Mar 28 13:10:56 2011">Mar 28, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>HI!  As someone mentioned that "there is an API provided by csipsimple to allow third party application to use sip on android without redevelopping everything" from where i get this API . Please Guide us. i also want to use csipsimple api for android.  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Mar 29 05:50:09 2011">Mar 29, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>@joyit., @saquib : that was a bug, fixed it. Thx for reporting. Do not hesitate to contribute the source code. Remember, the project is released under GPL and contributions are welcome ! </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/106513657510963127514/">Broi.jul...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Mar 30 05:45:26 2011">Mar 30, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hello ! </p><p>A bug is still remaining. When go to settings -&gt; Network the program craches. (ExceptionInInitializerError<a href="https://code.google.com/p/csipsimple/w/edit/ExceptionInInitializerError">?</a>) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/101412257347814268900/">zahir.ab...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Mar 30 13:01:53 2011">Mar 30, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>hi guys, i wanna use API provided by csipsimple, as i am really new to android,  i am facing two problems with aidl files. </p><p>1. "ipSipService.aidl defines methods; for example;  "void sipstart ()" , "getSipProfileState" and so on for other methods". for this service i could not find where these functions are implemented after proper search in the api. May be new implementation for me. </p><p>2. For isipconfiguration service i understand how  develpors is defining it and where but i am unable how to use particular functions as desirbed below </p><p>"iSipConfiguration.aidl defines a method "getAccount ()",  "addOrUpdateAccount", "setpreferencestring"  i don't know how to call these functions in my app using the remote service. as functions arguments seeming complex to me. I treid on the net alot to find how to use parceable aidl files work and call, even in the documentation, but it could not help alot. any help will be great appriciated. Regards zaheer </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">manu.gok...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Wed Apr  6 23:07:24 2011">Apr 6, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi all, i an trying to build the Android app by copying the pjsip libraries from latest nightly apk. I copied the lib folder and its contents to the CsipSimple<a href="https://code.google.com/p/csipsimple/w/edit/CsipSimple">?</a> foler of my Java project. But still when i build the Java project, the generated apk do not contain the lib folder and hence the Sip Stack initialisation fails when i launch the apk in my device. </p><p>Do i need to change any configuration in the java project after i copy teh lib folder from the latest apk to Java project folder?  </p><p>appreciate any pointers. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">inaam.ka...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Thu Apr 21 05:00:54 2011">Apr 21, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi, I have the same problem as Robert : &lt;&lt;... I tried to use the package org.pjsip.pjsua in my own application.By using the downloaded library I managed to use the pjsip lib to register a UA. The problem is that when I call the function call_make_call I see another exception that I find weird. It's a NoClassDefFound<a href="https://code.google.com/p/csipsimple/w/edit/NoClassDefFound">?</a>?. The class that can't be found is com.csipsimple.service.SipService<a href="https://code.google.com/p/csipsimple/w/edit/SipService">?</a>?. The problem is that I don't understand where that class comes from because I don't have it in my code. Searching in the .so file I found the error message I could see in the log. I can't find that string in my built library. So the question is: why is the downloaded library looking for that class? And why the code under svn is not? ...&gt;&gt; </p><blockquote>I read your answer and i want more details and i would like to know if Robert has resolve his problem and how?(there is a way to have robert's mail?) 
+</blockquote><p></p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/102571932861586524213/">greene...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri May 20 16:27:08 2011">May 20, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi </p><p>I can build the application from svn, and get the application to run and connect to my opensips server and make calls and send instant messages using my 2.2 Droidx device. </p><p>However using same build, on the emulator I can never get the Service com.csipsimple.service.SipService<a href="https://code.google.com/p/csipsimple/w/edit/SipService">?</a>  to run on the emulator. Hence I never can use the app on emulator and continue to test and develop the app. </p><p>Are there any settings I need to use, can someone please help me find pointers to get  the app to work on emulator. </p><p>Thanks. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat May 21 02:23:24 2011">May 21, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>activate the I'm allowed over 3g option. emulator only simulates a 3g connection . </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/102571932861586524213/">greene...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat May 21 12:36:28 2011">May 21, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Thanks Heaps. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Jun  6 23:31:52 2011">Jun 6, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Disable G7221 option if you want to make a tls build. TLS and G7221 are not compatible yet. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/110443027596742466746/">ramesh.s...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Jun 10 05:49:58 2011">Jun 10, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>I had tried all the ways that i know for building the library , but its in vein , pls someone help me out ... We are following these steps for Build the pjsip library for android:  </p><p>•Official android NDK:wget <a href="http://dl.google.com/android/ndk/android-ndk-r5b-linux-x86.tar.bz2" rel="nofollow">http://dl.google.com/android/ndk/android-ndk-r5b-linux-x86.tar.bz2</a>  tar -xvf android-ndk-r5b-linux-x86.tar.bz2 mv android-ndk-r5b pjsip_android cd pjsip_android/  1.Get only the relevant part of the svn  svn checkout <a href="http://csipsimple.googlecode.com/svn/trunk/pjsip_android/apps" rel="nofollow">http://csipsimple.googlecode.com/svn/trunk/pjsip_android/apps</a> apps cd ../../  Note : the source is also available in a Bazar mirror Build the library  </p><p>•Go into the pjsip_android directory:  cd pjsip_android  •Launch a make (but it will generate only one target lib)  make APP=pjsip  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/102694426454468901591/">pankajja...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Jun 15 01:52:32 2011">Jun 15, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi, I am trying to build the library with TLS/ZRTP support with MY_USE_TLS := 1 and have the following errors </p><p>apps/pjsip/project/build/..//pjlib/build/..//src/pj/ssl_sock_ossl.c:45:25: error: openssl/bio.h: No such file or directory apps/pjsip/project/build/..//pjlib/build/..//src/pj/ssl_sock_ossl.c:46:25: error: openssl/ssl.h: No such file or directory apps/pjsip/project/build/..//pjlib/build/..//src/pj/ssl_sock_ossl.c:47:25: error: openssl/err.h: No such file or directory apps/pjsip/project/build/..//pjlib/build/..//src/pj/ssl_sock_ossl.c:48:28: error: openssl/x509v3.h: No such file or directory </p><p>I am building this on Mac and Openssl is already installed. If we use MY_USE_TLS := 0 everything is ok. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/107993342798119293121/">david.ha...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Jun 17 07:51:49 2011">Jun 17, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi </p><p>I have the same problem that "manu" stated on Apr 6, 2011 a little bit up the page. </p><p>I quote: </p><blockquote>Hi all, i an trying to build the Android app by copying the pjsip libraries from latest nightly apk. I copied the lib folder and its contents to the CsipSimple<a href="https://code.google.com/p/csipsimple/w/edit/CsipSimple">?</a>? foler of my Java project. But still when i build the Java project, the generated apk do not contain the lib folder and hence the Sip Stack initialisation fails when i launch the apk in my device. 
+</blockquote><blockquote>Do i need to change any configuration in the java project after i copy teh lib folder from the latest apk to Java project folder? 
+</blockquote><p>can someone help us please? thank you </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/115661603682386905539/">ocean.ra...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Jun 25 07:24:08 2011">Jun 25, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>How to add "tls/srtp" for csipsimple?.is it possible? </p><p>only I found that how to active "tls/zrtp" </p><p>MY_USE_TLS := 1 and  -DPJ_HAS_SSL_SOCK=$(MY_USE_TLS)  -DPJMEDIA_HAS_ZRTP=$(MY_USE_TLS) \ </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/115427766099325987494/">cery...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Jun 28 08:05:53 2011">Jun 28, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi </p><p>I have tried above steps  mentioned to build application for eclipse, i have taken latest version from SVN and also extracted .so files from the same apk version, but still the apk which is generated, is not working properly. The account i add, its status always remain as inactive. </p><p>Please guide me  through this. </p><p>Regards </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/112087774745789805090/">werner...@googlemail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Jun 29 04:34:25 2011">Jun 29, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Building CSipSimple with TLS/ ZRTP: I tried to build it and set MY_USE_TLS=1 in the makefile but got an error about missing openSSL stuff (see some comments above). It seems that somehow this setting ins not propagated to the other makefiles. Thus I called the toplevel make and set an additional parameter "-DMY_USE_TLS=1" - this worked and CSipSimple compiled with TLS/ZRTP and built the openSSL libs. </p><p>Testing ZRTP/secure calls: ZRTP is an end-to-end protocol, thus the best way to test if secure calls are working is to use another ZRTP enabled SIP client, for example Twinkle or Jitsi, and connect to it. Maybe you use a WiFi<a href="https://code.google.com/p/csipsimple/w/edit/WiFi">?</a> connection to you PC running Twinkle or Jitsi. If you can't do a simple SIP call (without a registrar) then you must youe a SIP registrar of your choice (I usually use iptel.org because this registrar/outbound proxy has full NAT support) </p><p>Regards. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Jun 29 04:40:00 2011">Jun 29, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>@werner : when you set MY_USE_TLS to 1 did you take care of removing any extra space after the 1. </p><p>If not it take "1   " and the tests made on others .mk will not consider the option as activated (cause it test "1" and not "1   ").  I should probably remove the extra space after 0 in the Application.mk that is under revision control. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/109532346196234842809/">systal...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Jun 30 05:32:01 2011">Jun 30, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi all. Another question: if I use TLS and SRTP but I do not use ZRTP what should I do to make the client recognize the certificate of the server? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/110875554335342054806/">killerf...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Jun 30 23:21:37 2011">Jun 30, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi all, I buit libpjmedia.a and other libraries using csipsimple.  </p><p>After that I made simple android application like streamutil in pjsip-app/src/samples/streamutil.c. </p><p>But when I run the program it makes an error at "pjmedia_snd_port_create" and the error code is PJMEDIA_EAUD_NODEFDEV </p><a name=""></a><blockquote>status = pjmedia_snd_port_create(pool, -1, -1, 
+<blockquote>stream_port-&gt;info.clock_rate, 
+stream_port-&gt;info.channel_count, 
+stream_port-&gt;info.samples_per_frame, 
+stream_port-&gt;info.bits_per_sample, 
+0, &amp;snd_port); 
+</blockquote></blockquote><blockquote>if (status != PJ_SUCCESS) { 
+<blockquote>ADNROID_LOGE("Unable to create sound port, error %d", status); 
+Stop(); 
+return status; 
+</blockquote>} 
+</blockquote><a name=""></a><p>I wonder what is the problem and from where I have to struggle with. </p><p>Thanks you in advance.   I run the program using Android emulator 2.3 and samsung galaxyS (android 2.2) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Jul  1 00:51:12 2011">Jul 1, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>@systal... :  CSipSimple has now options in ui to allow/disable automatic certificate trust and to setup path to a certificate. I didn't test that point yet. </p><p>@killerf.. : For now, pjsip_android use a different toolchain than the Makefile one. As consequence, you have to use the android-ndk to build and the way an android native library build. As consequence obviously if you try to build a part of pjsip without knowning what you are doing exactly, you'll miss the android_dev (java or opensl implementation) and you'll forget to mount this dev in pjmedia supported device... and so obviously pjmedia will cry about the fact there is no dev for android built in your pjmedia library.  If you want to do this kind of build, you should first understand how toolchain works and what has been added to pjsip for the android port. Indeed, that's not well documented yet, but Florian (pjsip-jni author) is trying to make things easier for other developers and have a better way to build pjsip-android.  Until this is done, you'll have to dive into the code and try to understand how it works.  Good entry points are the /jni sub-folder and its source files and the files /build/Android.mk that are added in each module. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/110875554335342054806/">killerf...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sun Jul  3 23:04:05 2011">Jul 3, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>@r3gs... I really appreciate what you pointed and  I'will dive into it. Thank you sincerely.  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/107993342798119293121/">david.ha...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Jul 15 02:39:02 2011">Jul 15, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi r3gs, i'm building my own SIP application for a school project and i'm able to make calls to CSipSimple and vice versa by now. But when I try to call another application like Sipdroid it tells me that the codecs are incompatible. </p><p>Now, i've been searching for quite a while but just couldn't fine how/where to change/set other codecs. When I call Sipdroid with CSipSimple it works fine. At the moment I'm still using the libraries from your built, so I couldn't have gone wrong there. </p><p>Could you please point me in the right direction? Thank you  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Jul 15 02:42:58 2011">Jul 15, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>@david : can you ping me on the developer mailing list group? Will be easier to reply and to help you to debug :) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/116885937942548082259/">xardo...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Jul 21 23:55:44 2011">Jul 21, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>hello, guys help me out here.. i have built the .so files and copied them in android csipsimple project folder but when on run get logcat error saying no lib implemented, nothing can be done. Any comments?  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/116885937942548082259/">xardo...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Jul 22 03:00:58 2011">Jul 22, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>it says 07-22 15:59:52.762: WARN/dalvikvm(321): No implementation found for native Lorg/pjsip/pjsua/pjsuaJNI;.set_use_compact_form (I)V </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Jul 22 04:48:19 2011">Jul 22, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>@xardo =&gt; version of native library and java app must be identical. Sounds your native version is older than the java code. Just do a svn update on native part, rebuild and it will be fine. (set_use_compact_form was recently changed into a configuration struct) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Jul 25 06:50:37 2011">Jul 25, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>svn up ;) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/102822600428375230737/">basha0...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Jul 27 03:37:24 2011">Jul 27, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>hi i had checkout the csipsample and import in to the eclipse. but when i implement on the phone it is not working . i mean when i register it shows in active . can i know where i need to add the lib files  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/102822600428375230737/">basha0...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Jul 27 04:29:14 2011">Jul 27, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi all, i an trying to build the Android app by copying the pjsip libraries from latest nightly apk. I copied the lib folder and its contents to the CsipSimple<a href="https://code.google.com/p/csipsimple/w/edit/CsipSimple">?</a>?? foler of my Java project. But still when i build the Java project, the generated apk do not contain the lib folder and hence the Sip Stack initialisation fails when i launch the apk in my device. Do i need to change any configuration in the java project after i copy teh lib folder from the latest apk to Java project folder? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Aug 18 01:53:35 2011">Aug 18, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>If you want to build with webRTC enabled, use the official NDK method. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103975401356713111111/">sivakuma...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Aug 30 01:01:50 2011">Aug 30, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Getting error while compiling on all methods mentioned above using offical NDK, Crystal NDk Did anyone successfully compiled the library file. I am getting the following error </p><p>Compile++ arm    : webrtc_system_wrappers &lt;= event_posix.cc  Compile++ arm    : webrtc_system_wrappers &lt;= thread_posix.cc  Compile++ arm    : webrtc_system_wrappers &lt;= trace_posix.cc  Compile++ arm    : webrtc_system_wrappers &lt;= rw_lock_posix.cc  In file included from apps/pjsip/project/build/..//third_party/webrtc/  system_wrappers/source/rw_lock_posix.cc:11:  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.h:35: error: 'pthread_rwlock_t' does not name a type  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc: In constructor 'webrtc::RWLockPosix::RWLockPosix()':  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:14: error: class 'webrtc::RWLockPosix' does not have  any field named '<i>lock'  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc: In destructor 'virtual  webrtc::RWLockPosix::~RWLockPosix()':  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:20: error: '</i>lock' was not declared in this scope  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:20: error: 'pthread_rwlock_destroy' was not declared  in this scope  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc: In member function 'virtual int  webrtc::RWLockPosix::Init()':  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:25: error: '<i>lock' was not declared in this scope  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:25: error: 'pthread_rwlock_init' was not declared in  this scope  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc: In member function 'virtual void  webrtc::RWLockPosix::AcquireLockExclusive<a href="https://code.google.com/p/csipsimple/w/edit/AcquireLockExclusive">?</a>()':  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:30: error: '</i>lock' was not declared in this scope  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:30: error: 'pthread_rwlock_wrlock' was not declared  in this scope  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc: In member function 'virtual void  webrtc::RWLockPosix::ReleaseLockExclusive<a href="https://code.google.com/p/csipsimple/w/edit/ReleaseLockExclusive">?</a>()':  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:35: error: '<i>lock' was not declared in this scope  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:35: error: 'pthread_rwlock_unlock' was not declared  in this scope  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc: In member function 'virtual void  webrtc::RWLockPosix::AcquireLockShared<a href="https://code.google.com/p/csipsimple/w/edit/AcquireLockShared">?</a>()':  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:40: error: '</i>lock' was not declared in this scope  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:40: error: 'pthread_rwlock_rdlock' was not declared  in this scope  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc: In member function 'virtual void  webrtc::RWLockPosix::ReleaseLockShared<a href="https://code.google.com/p/csipsimple/w/edit/ReleaseLockShared">?</a>()':  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:45: error: '<i>lock' was not declared in this scope  apps/pjsip/project/build/..//third_party/webrtc/system_wrappers/source/  rw_lock_posix.cc:45: error: 'pthread_rwlock_unlock' was not declared  in this scope  make: <strong></strong><strong> [out/apps/pjsip/armeabi/objs/webrtc_system_wrappers/  rw_lock_posix.o] Error 1  </strong></i></p><p>Thanks  sivakumar </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Sep  1 13:21:15 2011">Sep 1, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Try to make with "make APP=pjsip TARGET_PLATFORM=android-9" if you want to keep USE_WEBRTC feature enabled. Else, just disable webrtc feature (see the Application.mk file). </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Sep  5 13:41:21 2011">Sep 5, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>For now speex is mandatory due to the inclusion of speex echo canceller. So, simply re-enable MY_USE_SPEEX and it will build. You can play with flags if you want to disable speex echo canceller (that's probably possible). Now that webrtc echo canceller is there (and default), I should probably take the point to allow speex to be optional. If you want to contribute such a patch, do not hesitate to share (use the developer google group also, would be much more easier ;) ). </p><p>Also, note that anyway, you can at the application level control enabled codecs. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/100983886245251261697/">vishalg...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Sep 22 06:03:02 2011">Sep 22, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi All, I am following the "How to build instruction" but it creating error when i run the command make APP=pjsip in windows xp using cygwin.i also tried the ndk-build command but not get any succes to see the lib folder(../CSipSimple/libs/armeabi &amp; armeabi-v7a) in CSipSimple with .so file.I am using ndkr5b and r6b both. </p><p>please help me to build the csipsimple project using ndk and cygwin in windows xp. </p><p>thanks in advance.......... </p><p>Thanks Vishal Singh </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/110194531560368387233/">380c...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Oct  1 01:52:26 2011">Oct 1, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hello </p><p>Your library is only 1MB Why I compiled more than 4MB  libpjsipjni.so                Thanks  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/112439504312101001461/">julius...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sun Oct  9 21:08:16 2011">Oct 9, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>anyone compiled this with success? Mine always fails in make APP=pjsip with this problem: </p><p>Fatal error: Invalid -march= option: 'armv5te' make: out/apps/pjsip/armeabi/objs/psjipjni/src//pjsua_jni_addons.o? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/112609292899197536588/">kokwen...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sun Nov 20 07:19:05 2011">Nov 20, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>re: my last comment on compilation errors on <a href="https://code.google.com/p/csipsimple/source/detail?r=1109">r1109</a> </p><p>The problem has been solved with <a href="https://code.google.com/p/csipsimple/source/detail?r=1110">r1110</a>. Thankz! Basically, pjsip_android/apps/pjsip/project/build/Android.mk has been updated to point the the correct files/folders. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/100826629678352881661/">murad...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Nov 24 00:51:18 2011">Nov 24, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi I am getting errors compiling CSipSimple on Ubuntu 10.04 lucid </p><p>/usr/src/android-ndk-<a href="https://code.google.com/p/csipsimple/source/detail?r=7">r7</a>/prebuilt/linux-x86/bin/awk: /usr/src/android-ndk-<a href="https://code.google.com/p/csipsimple/source/detail?r=7">r7</a>/prebuilt/linux-x86/bin/awk: cannot execute binary file Android NDK: Host 'awk' tool is outdated. Please define HOST_AWK to point to Gawk or Nawk ! make1?: Entering directory <tt>/usr/src/CSipSimple' /usr/src/android-ndk-r7/build/core/init.mk:258: Android NDK: Aborting. . Stop. make1?: Leaving directory </tt>/usr/src/CSipSimple' make: libraries? Error 2  </p><p>Any idea how to resolve this?  </p><p>Murad  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Nov 24 01:48:13 2011">Nov 24, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>It's a problem with your NDK installation. Not only you'll not be able to build csipsimple but all applications that use the NDK ;). A quick search on google give this result : <a href="http://stackoverflow.com/questions/8116113/problems-with-android-ndk-7-and-awk" rel="nofollow">http://stackoverflow.com/questions/8116113/problems-with-android-ndk-7-and-awk</a> . Hope it helps :) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Nov 30 01:18:40 2011">Nov 30, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>@Aparna :  If you want to use the ndk-build instead of the make method, the first part of this page is for you. The second part, as you noticed, is an obsolete method that was relevant in previous ndk versions. Besides, please, use the developer group instead of comments on this wiki page, it's very hard to share information in a simple comment thread !  Last point, if you are a developer, stop using windows ;) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/113783124618031643015/">ursu.adr...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Dec  5 04:09:20 2011">Dec 5, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hello. I have just updated to the last revision and I have a problem running "make". I am getting this error: </p><p>Compile++ thumb  : zrtp4pj &lt;= ZsrtpCWrapper.cpp Compile thumb  : zrtp4pj &lt;= transport_zrtp.c StaticLibrary<a href="https://code.google.com/p/csipsimple/w/edit/StaticLibrary">?</a>  : libcrypto_ec_static.a Compile++ thumb  : pj_webrtc_codec &lt;= webrtc_codec.cpp make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: <strong></strong><strong> No rule to make target <tt>jni//webrtc/android_toolchain/../sources//modules/audio_coding/codecs/CNG/main/source/webrtc_cng.c', needed by </tt>obj/local/armeabi/objs/webrtc_cng/webrtc_cng.o'.  Stop. make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: </strong><strong></strong> Waiting for unfinished jobs.... StaticLibrary<a href="https://code.google.com/p/csipsimple/w/edit/StaticLibrary">?</a>  : libwebrtc_audio_coding.a make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: Leaving directory `/home/home/Programs/CSipSimple/CSipSimple' make: <strong></strong><strong> libraries<a href="https://code.google.com/p/csipsimple/w/edit/libraries">?</a> Error 2 </strong></p><p>Did anyone had this issue before ? </p><p>Thank you. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/113783124618031643015/">ursu.adr...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Dec  5 04:21:15 2011">Dec 5, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>I solved the issue. I had to "make-clean". After that I typed "make" and worked very well.  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/115661603682386905539/">ocean.ra...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Dec 10 01:53:43 2011">Dec 10, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Hi! i want to know the build procedure of "pjsip_android" with amrnb codec. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Dec 10 03:06:26 2011">Dec 10, 2011</span>
+ <div>
+<div class="commentcontent">
+<p>Follow instruction of the old way + read the part about how to customize your build (it's about modifying the application.mk and enabling MY_USE_AMR... ). For further information, do not hesitate to join the developer google group ;). </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/113057149915932352048/">tsa...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Jan 21 02:13:31 2012">Jan 21, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>Hi All, first, wonderful work with this project, thanks. So, I'm trying to compile on eclipse 3.6.2 with latest android sdk installed (all sdk are installed), on a mac, latest osx. On eclipse I follow the instructions to create a new android from source and also did a regular import for the actionbarsherlock library. I get all sorts of errors for both the library and the SipHome<a href="https://code.google.com/p/csipsimple/w/edit/SipHome">?</a> project, btw. my sdk manager does not show 2.3 version (it does have 2.3.1 and 2.3.2 if I recall correctly, I chose 2.3.1), can someone help posting more clear instructions on how to import the projects into eclipse the correct way, all the best, -tzurs Errors I get: </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Jan 21 03:24:54 2012">Jan 21, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>@tsayag : please ask on the developer group instead it's easier to share problem... And actually I already replied that on the developer group ;). You mistake between what means the target sdk and what is the min sdk. Read my post here : <a href="http://groups.google.com/group/csipsimple-dev/msg/e82e30b0f5384c3c" rel="nofollow">http://groups.google.com/group/csipsimple-dev/msg/e82e30b0f5384c3c</a> it explains android sdk target, min/max and library. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/113057149915932352048/">tsa...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Jan 21 13:02:00 2012">Jan 21, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>Sorry about that, I'll follow up in the relevant forum. thanks! </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">FaysalMi...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Wed Jan 25 09:04:19 2012">Jan 25, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>I could not install package swig2.0 in ubuntu 10.04 LTS </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">FaysalMi...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Wed Jan 25 10:27:36 2012">Jan 25, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>make: <strong></strong><strong> No rule to make target <tt>jni//swig-glue/android_toolchain/../nativesrc/pjsua_wrap.cpp', needed by </tt>obj/local/armeabi/objs/swig-glue/pjsua_wrap.o'.  Stop. what is the solution of this after usning ndk to build... </strong></p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/104561496815942320382/">vuthan...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Jan 31 02:25:22 2012">Jan 31, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>make: <strong></strong><strong> No rule to make target `jni//webrtc/android_toolchain/../sources//modules/video_capture/main/source/Android.mk'.  Stop. make: Leaving directory `/buildcsip/CSipSimple' make: </strong><strong></strong> libraries Error 2 </p><p>I got this error. How can I fix it. Please help me Thanks! </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">ryangho...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Wed Feb  1 06:30:19 2012">Feb 1, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>jni//pjsip/android_toolchain/pjmedia/../../sources/pjmedia//src/pjmedia-codec/ffmpeg_codecs.c:1163: warning: 'avcodec_open' is deprecated (declared at jni//pjsip/android_toolchain/pjmedia/../../sources/pjmedia//../../../ffmpeg/ffmpeg_src/libavcodec/avcodec.h:3686) make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: <strong></strong><strong> [obj/local/armeabi/objs/pj_video_android/src/pjmedia-codec/ffmpeg_codecs.o] Error 1 make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: </strong><strong></strong> Waiting for unfinished jobs.... make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: Leaving directory `/home/rayan/Desktop/check' </p><p>Cant find the error for this !! OS = Ubuntu 11.04 , if encountered by anyone please share the solution . </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/116479739095038377779/">ajcpsoa...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Feb  1 06:45:55 2012">Feb 1, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>Hi ryan. I had two problems on ffmpeg_codecs.c (erros, not warnings), and my solution was to comment the lines where the error occurs.  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">ryangho...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Wed Feb  1 07:30:37 2012">Feb 1, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>Hi thanks for your advice , but where should i comment them ? , theses errors are shown in the terminal when i write make i need later on to copy them to eclipse and debug csipsimple , i would be really grateful if you would  help thanks . </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Feb  1 13:56:31 2012">Feb 1, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>Guys, please, go on the developer group ! It's ways easier to share problems and last one at least was already replied (with a new zip ;) )! </p><p>For ffmpeg pb, I guess that's something with the version of ffmpeg checked out try the "make update" command </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/112370721776696978287/">business...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Apr 27 02:21:35 2012">Apr 27, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>Ubuntu 12.04: also needed yasm and potential build-essentials </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/113706881506888293858/">hugh....@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu May  3 04:43:03 2012">May 3, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>when i building the native library,there are something wrong: make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>:<strong></strong><strong>[build/x264/armeabi/lib/libx264.a] Error1 make:</strong><strong></strong>[ext-lib] Error 2 How can i fix it? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">winkingk...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Thu Jul  5 02:22:14 2012">Jul 5, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>Hi , I am learnning this project ,but svn checkout code is not the complete. I cann't find any code in CSipSimple\src\org\pjsip\ .What's the problem ,thanks a lot! </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/114571527510129873822/">gbat...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sun Aug 19 10:47:29 2012">Aug 19, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>Great work there guys, took a while to get it right and finally be able to import the vm but wow awesome, I am going through the wiki again this is great </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/105817331676015298512/">ascent.s...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Sep 18 07:31:16 2012">Sep 18, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>No rule to make target jni//swig-glue/android_toolchain/../nativesrc/pjsua_wrap.cpp', needed by obj/local/armeabi/objs/swig-glue/pjsua_wrap.o'. Stop. what is the solution of this after usning ndk to build Please give me solution </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/104288254643174194062/">ttlhu...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Sep 24 00:24:51 2012">Sep 24, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>Hi ! i am using Ubuntu 12.04 and try to compile or build CsipSimple<a href="https://code.google.com/p/csipsimple/w/edit/CsipSimple">?</a> with this link '<a href="http://code.google.com/p/csipsimple/wiki/HowToBuild" rel="nofollow">http://code.google.com/p/csipsimple/wiki/HowToBuild</a>'  but it gives some problem  </p><p>please reply me as soon as possible. </p><p>please see following logs: </p><p>"make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: Entering directory `/home/huyenttl/Desktop/CSipSimple/jni/zrtp4pj' Cloning into 'sources'... fatal: unable to connect to github.com: github.com[0: 207.97.227.239]: errno=Connection refused </p><p>/bin/sh: 2: cd: can't cd to sources fatal: Not a git repository (or any of the parent directories): .git fatal: Not a git repository (or any of the parent directories): .git fatal: Not a git repository (or any of the parent directories): .git /bin/sh: 4: cd: can't cd to zsrtp Cloning into 'zrtp'... fatal: unable to connect to github.com: github.com[0: 207.97.227.239]: errno=Connection refused </p><p>/bin/sh: 6: cd: can't cd to zrtp fatal: Not a git repository (or any of the parent directories): .git fatal: Not a git repository (or any of the parent directories): .git fatal: Not a git repository (or any of the parent directories): .git make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: <strong></strong><strong> sources<a href="https://code.google.com/p/csipsimple/w/edit/sources">?</a> Error 128 make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: Leaving directory `/home/huyenttl/Desktop/CSipSimple/jni/zrtp4pj' make: </strong><strong></strong> [jni/zrtp4pj/sources] Error 2 " </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by  project member 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/103053537395257486222/">r3gis...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Sep 24 00:31:28 2012">Sep 24, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>Please join dev google group. Hard for me to reply here. In you case seems your PC is unable to checkout from github. (connection refused). Check your connection. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/104288254643174194062/">ttlhu...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Sep 24 01:32:38 2012">Sep 24, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>Ths for reply! I've already joined dev google group, please help me as soon as possible!  </p><p><a href="https://groups.google.com/forum/?fromgroups=#%21topic/csipsimple-dev/1kEJLYMAGsA" rel="nofollow">https://groups.google.com/forum/?fromgroups=#!topic/csipsimple-dev/1kEJLYMAGsA</a> </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/109725657353009516276/">zx.jim...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Sep 24 13:31:15 2012">Sep 24, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>I don't know how to transplant pjsip to android. I see nothing configue log in the pjsip jni directory. who can give me an explanation on the transplantation? Thanks </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">ixia...@126.com</span>,
+ 
+ </span>
+ <span class="date" title="Sun Oct  7 20:13:15 2012">Oct 7, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>i feel sad about that how to build this project now.i mean that this is my first time to learn NDK, but i will work hard.waiting. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/Lyaotian@gmail.com/">Lyaotian@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sun Nov  4 06:28:52 2012">Nov 4, 2012</span>
+ <div>
+<div class="commentcontent">
+<p>thanks!! </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/101328491267219829333/">si...@e-softbilling.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Jan 26 03:26:32 2013">Jan 26, 2013</span>
+ <div>
+<div class="commentcontent">
+<p>When i import CSipSimple then show error is below : pjsua cannot be resolved </p><p>how to resolve of this errors.please help me. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/112420736975411621381/">jkhan6...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Feb  8 00:19:43 2013">Feb 8, 2013</span>
+ <div>
+<div class="commentcontent">
+<p>Thanks a lot, project is successfully imported in Eclipse! </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/108384419580193726741/">lzi...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Feb  8 14:35:36 2013">Feb 8, 2013</span>
+ <div>
+<div class="commentcontent">
+<p>I am trying to get the source of pjsip_android down using SubversionSVN on Windows machine, but I am getting error E170000: URL doesn't exist. Can anyone tell me what I am doing wrong please? My command is: svn checkout <a href="http://csipsimple.googlecode.com/svn/trunk/pjsip_android/" rel="nofollow">http://csipsimple.googlecode.com/svn/trunk/pjsip_android/</a> c:\pjsip </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/100810771224146811601/">luigicol...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Mar 22 07:46:37 2013">Mar 22, 2013</span>
+ <div>
+<div class="commentcontent">
+<p>Hi guys, </p><p>i have done chackout from cvs repository anche i have downloaded the CSipSimple-0.03-01.apk and the org.tar. I have extract the source file from the org.tar in org.pjsip packageand i have copy the armeabi and armeabi-v7a folder from apk to lib folder in my android project. When i configure my account i'm always inactive. If i install the CSipSimple-0.03-01.apk on my smartphone i can register my account successfully. Why? Can i have a complete project to download? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/106617433072671308435/">chiforbo...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Apr 16 01:07:05 2013">Apr 16, 2013</span>
+ <div>
+<div class="commentcontent">
+<p>Hello, </p><p>I would like to add an encryption feature.I started by computing an XOR with a preshared key on the callback functions from opensl_dev.c, but I didn't obtained a clear voice on the other side(where I computed the same XOR operation). Can you give me a hint?  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">tavomora...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Thu May 30 08:39:39 2013">May 30, 2013</span>
+ <div>
+<div class="commentcontent">
+<p>hello </p><p>i would like make an aplication what only makes calls based in the settings basic of client SIP, only username, pass, and domain but this aplication is very big and i dont understand, someone can say me how it make?, thanks </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/114854151370225466679/">guanxian...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Jun  1 08:39:32 2013">Jun 1, 2013</span>
+ <div>
+<div class="commentcontent">
+<p>Hello. </p><blockquote>I find that I download file from CSipSimple-CompilerVM.vmdk, there are no file like .vmdk, there are only .zip and unzip it find there are .vbox and .vdi file. 
+</blockquote><p></p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/105092262999379555475/">stephen....@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Jun 20 22:14:52 2013">Jun 20, 2013</span>
+ <div>
+<div class="commentcontent">
+<p>Howdy - following the directions on a clean-format install of Ubuntu 13.04 x64 and fresh download of Google's adt / Eclipse system... you run into errors in MainActivity<a href="https://code.google.com/p/csipsimple/w/edit/MainActivity">?</a>.java for /pjsua/src/org/pjsip/jsua saying "pjsua cannot be resolved" (lines 90,93,230,234). Somewhere here a step is needed to get that correct with all latest checkout and tools. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/110132440980801314503/">jindegeg...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Jun 27 00:02:01 2013">Jun 27, 2013</span>
+ <div>
+<div class="commentcontent">
+<p>hello  I have compiled then show error is below : </p><p>root@ubuntu:/home/jindegege/CSipSimple-trunk/CSipSimple# make make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: entering directory `/home/jindegege/CSipSimple-trunk/CSipSimple/jni/pjsip' /bin/sh: 1: quilt: not found make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: <strong></strong><strong> [.patched_sources] error 127 make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>:leaving directory`/home/jindegege/CSipSimple-trunk/CSipSimple/jni/pjsip' make: </strong><strong></strong> [jni/pjsip/.patched_sources] error 2 </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/104190362242402484157/">suresh.k...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Jun 27 23:41:53 2013">Jun 27, 2013</span>
+ <div>
+<div class="commentcontent">
+<p>i am getting these error please answer me </p><p>1&gt;c:\users\gagan.adoreinfotech\desktop\microsip\microsipdlg.h(6) : fatal error C1083: Cannot open include file: 'pjsua-lib/pjsua.h': No such file or directory 1&gt;settings.cpp 1&gt;c:\users\gagan.adoreinfotech\desktop\microsip\global.h(5) : fatal error C1083: Cannot open include file: 'pjsua-lib/pjsua.h': No such file or directory 1&gt;RinginDlg<a href="https://code.google.com/p/csipsimple/w/edit/RinginDlg">?</a>.cpp 1&gt;c:\users\gagan.adoreinfotech\desktop\microsip\ringindlg.h(5) : fatal error C1083: Cannot open include file: 'pjsua-lib/pjsua.h': No such file or directory 1&gt;ModelessMessageBox<a href="https://code.google.com/p/csipsimple/w/edit/ModelessMessageBox">?</a>.cpp 1&gt;microsipDlg.cpp 1&gt;c:\users\gagan.adoreinfotech\desktop\microsip\microsipdlg.h(6) : fatal error C1083: Cannot open include file: 'pjsua-lib/pjsua.h': No such file or directory 1&gt;microsip.cpp 1&gt;c:\users\gagan.adoreinfotech\desktop\microsip\microsipdlg.h(6) : fatal error C1083: Cannot open include file: 'pjsua-lib/pjsua.h': No such file or directory 1&gt;MessagesDlg<a href="https://code.google.com/p/csipsimple/w/edit/MessagesDlg">?</a>.cpp 1&gt;c:\users\gagan.adoreinfotech\desktop\microsip\global.h(5) : fatal error C1083: Cannot open include file: 'pjsua-lib/pjsua.h': No such file or directory 1&gt;langpack.cpp 1&gt;global.cpp 1&gt;c:\users\gagan.adoreinfotech\desktop\microsip\global.h(5) : fatal error C1083: Cannot open include file: 'pjsua-lib/pjsua.h': No such file or directory 1&gt;Dialer.cpp 1&gt;c:\users\gagan.adoreinfotech\desktop\microsip\global.h(5) : fatal error C1083: Cannot open include file: 'pjsua-lib/pjsua.h': No such file or directory 1&gt;Contacts.cpp 1&gt;c:\users\gagan.adoreinfotech\desktop\microsip\global.h(5) : fatal error C1083: Cannot open include file: 'pjsua-lib/pjsua.h': No such file or directory 1&gt;AddDlg<a href="https://code.google.com/p/csipsimple/w/edit/AddDlg">?</a>.cpp 1&gt;c:\users\gagan.adoreinfotech\desktop\microsip\microsipdlg.h(6) : fatal error C1083: Cannot open include file: 'pjsua-lib/pjsua.h': No such file or directory 1&gt;AccountDlg<a href="https://code.google.com/p/csipsimple/w/edit/AccountDlg">?</a>.cpp 1&gt;c:\users\gagan.adoreinfotech\desktop\microsip\microsipdlg.h(6) : fatal error C10 </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/112067872421813087135/">shayanna...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sun Apr 13 04:41:57 2014">Apr 13, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>Hey regis I want to make csipsimple with a g729 plugin bultin in the app can I do that ??? Please tell me how can I do it ??? I can't find anyway to do that ! Thanks </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/112067872421813087135/">shayanna...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sun Apr 13 04:43:36 2014">Apr 13, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>Will be very gratefull to you  </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">erick.ke...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Wed Jun 11 00:40:06 2014">Jun 11, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>Hi, r3gis. I'm following the this guide "How to build", but I always try to make the native libary with command "make" I got this (things that I tried to do: Make a new VTM, use commands make clean, make update and make), I'll be very greatful if you can help me: </p><p>x86<a href="https://code.google.com/p/csipsimple/w/edit/x86">?</a> SharedLibrary<a href="https://code.google.com/p/csipsimple/w/edit/SharedLibrary">?</a>  : libpjsipjni.so /home/user/adevelopment/NDK/toolchains/x86-4.6/prebuilt/linux-x86_64/bin/../lib/gcc/i686-linux-android/4.6/../../../../i686-linux-android/bin/ld: error: ./obj/local/x86/libcrypto_static.a(bn_mul.o): multiple definition of 'bn_sub_part_words' /home/user/adevelopment/NDK/toolchains/x86-4.6/prebuilt/linux-x86_64/bin/../lib/gcc/i686-linux-android/4.6/../../../../i686-linux-android/bin/ld: ./obj/local/x86/libcrypto_static.a(bn-586.o): previous definition here collect2: ld returned 1 exit status make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: <strong></strong><strong> [obj/local/x86/libpjsipjni.so] Error 1 make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: </strong><strong></strong> Waiting for unfinished jobs.... rm jni/swig-glue/android_toolchain/../.interface.i jni/swig-glue/android_toolchain/../.pjsua.i make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: Leaving directory `/home/user/CSipSimple-trunk/CSipSimple' make: <strong></strong><strong> libraries<a href="https://code.google.com/p/csipsimple/w/edit/libraries">?</a> Error 2 </strong></p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/114773225980928734204/">lion77...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Jul  1 05:02:03 2014">Jul 1, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>My os Ubuntu   compile problem make     Configuration failed. This could reflect a misconfiguration of your toolchains, improper options selected, or another problem. If you don't see any useful error messages above, the next step is to look at the configure error log file (config.err) to determine what configure was trying to do when it died. make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: <strong></strong><strong> [build/armeabi/config.mk] Error 1 make: </strong><strong></strong> [jni/libvpx/sources] Error 2 </p><p>how to fix? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">ajaeh...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Mon Jul 28 21:22:06 2014">Jul 28, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>I had a same problem. In my case, I used a soft link "android-ndk-linux" to the real directory "android-ndk-r9d". And in my .bashrc file, I wrote the line ANDROID_NDK= .../android-ndk-linux (soft link file name). It caused the problems. So, I deleted the soft link, and replace the above line with the real directory name. After that, above misconfiguration problem disappeared. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">ajaeh...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Mon Jul 28 21:35:27 2014">Jul 28, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>I have another problem. When I build Videolibs, i.e. "make VideoLibs<a href="https://code.google.com/p/csipsimple/w/edit/VideoLibs">?</a>", I got an error message at the time of generating "obj/local/x86/libpj_video_android.so". The exact message is ... </p><p>i686-linux-android-g++: error: jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/../../../ffmpeg/build/ffmpeg/x86/lib/libavcodec.a: No such file or directory i686-linux-android-g++: error: jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/../../../ffmpeg/build/ffmpeg/x86/lib/libavformat.a: No such file or directory i686-linux-android-g++: error: jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/../../../ffmpeg/build/ffmpeg/x86/lib/libswscale.a: No such file or directory i686-linux-android-g++: error: jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/../../../ffmpeg/build/ffmpeg/x86/lib/libavutil.a: No such file or directory make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: <strong></strong><strong> [obj/local/x86/libpj_video_android.so] Error 1 </strong></p><p>I tried 3 different ndk tools (ndk-<a href="https://code.google.com/p/csipsimple/source/detail?r=10">r10</a>, ndk-r9d, ndk-r9c). All of them returned above error messages. </p><p>Other make lines (such as make, make CodecPackLibs<a href="https://code.google.com/p/csipsimple/w/edit/CodecPackLibs">?</a>, make CodecG729<a href="https://code.google.com/p/csipsimple/w/edit/CodecG729">?</a> ) are successful. Can anybody help me? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">ajaeh...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Mon Jul 28 22:06:31 2014">Jul 28, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>Solved partially. </p><p>In the file "jni/Application.mk", I focuses only one target, i.e. armeabi. This is successful. In other words, I replaced the line "APP_ABI := armeabi armeabi-v7a x86 mips" with "APP_ABI := armeabi".  </p><p>and CSipSimple/libs directory, deleted other directories except armeabi. I am wondering why other target (especially x86) causes problem. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">ajaeh...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Wed Jul 30 07:09:24 2014">Jul 30, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>Dear, </p><p>I am finding a JNI code related to call termination. I found that the native NDK functions are implemented in the file "pjsua_wrap.cpp". And I found that when the hangup event happens, JNICALL Java_org_pjsip_pjsua_pjsuaJNI_call_1hangup function are called. Then which function is called at the other peer. In other words, when the two peers are calling each other, and when the call terminates, in one peer native code, "hangup" function is called, then at the other peer, which function is called? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">phartatm...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Sat Aug 16 15:42:58 2014">Aug 16, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>I have set-up my PATH exactly as described in these instructions, but I get the following error: </p><p>Traceback (most recent call last): </p><blockquote>File "sources/build/generate_asm_header.py", line 46, in &lt;module&gt; 
+<blockquote>main(sys.argv[1:]) 
+</blockquote>File "sources/build/generate_asm_header.py", line 30, in main 
+<blockquote>infile = open(argv0<a href="https://code.google.com/p/csipsimple/w/edit/0">?</a>) 
+</blockquote></blockquote>IOError: 2<a href="https://code.google.com/p/csipsimple/w/edit/Errno">?</a> No such file or directory: 'sources/modules/audio_processing/aecm/aecm_core_neon_offsets.S' <p></p><p>Also, I had to wget SILK_SDK_SRC_v1.0.9.zip from here : <a href="http://code.google.com/p/bkvoice/downloads/detail?name=SILK_SDK_SRC_v1.0.9.zip&amp;can=2&amp;q=" rel="nofollow">http://code.google.com/p/bkvoice/downloads/detail?name=SILK_SDK_SRC_v1.0.9.zip&amp;can=2&amp;q=</a>  </p><p>I guess that is because I need an account with Skype or something because I also had this error at the beggining: </p><p>--2014-08-16 22:24:42--  <a href="https://developer.skype.com/silk/SILK_SDK_SRC_v1.0.9.zip" rel="nofollow">https://developer.skype.com/silk/SILK_SDK_SRC_v1.0.9.zip</a> Resolving developer.skype.com (developer.skype.com)... 46.137.123.140 Connecting to developer.skype.com (developer.skype.com)|46.137.123.140|:443... failed: Connection refused. </p><p>Maybe the file I need is only in the zip from developer.skype.com ?? </p><p>Any help would be cool, other wise I'll just look for a prebuilt or an older release maybe. Thanks for everything though, looking forward to trying it out. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/116291975193428041294/">ganesh...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Sep 25 05:24:13 2014">Sep 25, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>Quick update: To install ia32-libs on Ubuntu 14 run the following </p><blockquote><i><strong>sudo apt-get install lib32stdc++6 sudo apt-get install lib32z1</strong> 
+</i></blockquote><p><i>Also NDK might have a different path when you unzip so this might be wrong. Point to the correct directory.  </i></p><p><i><strong>export ANDROID_NDK=/</strong></i><strong>path_to/android-ndk-linux/</strong> </p><p><i><strong>android update project -p ./</strong> now needs a target with target parameter. Run </i><strong>android list targets</strong> and choose your target. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/100422744692939208525/">jitendra...@kiwitech.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Oct 10 02:32:45 2014">Oct 10, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>HI i am getting the following error while executing make in csipsimple any suggestions </p><p>Now at patch 001arm_asm_native_size_return.diff make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: Leaving directory `/home/kiwitech/csipexperiment/CSipSimple-trunk/CSipSimple/jni/ffmpeg' make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: Entering directory `/home/kiwitech/csipexperiment/CSipSimple-trunk/CSipSimple/jni/silk' Applying patch 000get_toc_bug.diff can't find file to patch at input line 5 Perhaps you used the wrong -p or --strip option? The text leading up to this was: </p><hr>|Index: silk/sources/SILK_SDK_SRC_ARM_v1.0.9/src/SKP_Silk_dec_API.c |=================================================================== |--- silk.orig/sources/SILK_SDK_SRC_ARM_v1.0.9/src/SKP_Silk_dec_API.c	2012-10-05 23:21:11.729813834 +0200 |+++ silk/sources/SILK_SDK_SRC_ARM_v1.0.9/src/SKP_Silk_dec_API.c	2012-10-05 23:21:15.125813920 +0200 <hr>No file to patch.  Skipping patch. 1 out of 1 hunk ignored can't find file to patch at input line 18 Perhaps you used the wrong -p or --strip option? The text leading up to this was: <hr>|Index: silk/sources/SILK_SDK_SRC_FIX_v1.0.9/src/SKP_Silk_dec_API.c |=================================================================== |--- silk.orig/sources/SILK_SDK_SRC_FIX_v1.0.9/src/SKP_Silk_dec_API.c	2012-10-05 23:21:11.753813833 +0200 |+++ silk/sources/SILK_SDK_SRC_FIX_v1.0.9/src/SKP_Silk_dec_API.c	2012-10-05 23:21:15.125813920 +0200 <hr>No file to patch.  Skipping patch. 1 out of 1 hunk ignored can't find file to patch at input line 31 Perhaps you used the wrong -p or --strip option? The text leading up to this was: <hr>|Index: silk/sources/SILK_SDK_SRC_FLP_v1.0.9/src/SKP_Silk_dec_API.c |=================================================================== |--- silk.orig/sources/SILK_SDK_SRC_FLP_v1.0.9/src/SKP_Silk_dec_API.c	2012-10-05 23:21:11.769813831 +0200 |+++ silk/sources/SILK_SDK_SRC_FLP_v1.0.9/src/SKP_Silk_dec_API.c	2012-10-05 23:21:15.125813920 +0200 <hr>No file to patch.  Skipping patch. 1 out of 1 hunk ignored can't find file to patch at input line 44 Perhaps you used the wrong -p or --strip option? The text leading up to this was: <hr>|Index: silk/sources/SILK_SDK_SRC_MIPS_v1.0.9/src/SKP_Silk_dec_API.c |=================================================================== |--- silk.orig/sources/SILK_SDK_SRC_MIPS_v1.0.9/src/SKP_Silk_dec_API.c	2012-10-05 23:21:11.705813831 +0200 |+++ silk/sources/SILK_SDK_SRC_MIPS_v1.0.9/src/SKP_Silk_dec_API.c	2012-10-05 23:21:15.129813920 +0200 <hr>No file to patch.  Skipping patch. 1 out of 1 hunk ignored Patch 000get_toc_bug.diff does not apply (enforce with -f) make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: <strong></strong><strong> [.patched_sources] Error 1 make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: Leaving directory `/home/kiwitech/csipexperiment/CSipSimple-trunk/CSipSimple/jni/silk' make: </strong><strong></strong> [jni/silk/.patched_sources] Error 2 <p></p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/106617102551804035662/">Alexande...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Sat Nov  1 07:07:20 2014">Nov 1, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>HI  </p><p>I had the same problem. If you don't need the Skype codec (SILK) then you can remove it by editing the makefile.  You just have to remove the "silk" words.  </p><p>It's because microsoft doesn't offer a silk download anymore </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/114269981913874033014/">debangan...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Nov 11 02:24:56 2014">Nov 11, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>hi, I have followed the exactly same way as described above....it creates account successfully under local network....but the account is not registered successfully....it shows inactive with orange bar.....help me with this... </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/115831882847395149973/">sram...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Mon Dec  1 22:04:55 2014">Dec 1, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>Can you give the solution for this issue i was trying to resolve i could not able to do where is the issue and i am using ubuntu 12.04 and android-ndkr9c  </p><p>Applying patch 002pjsip-webrtc-aec.diff patching file sources/aconfigure patching file sources/aconfigure.ac patching file sources/build/rules.mak Hunk #1 FAILED at 167. 1 out of 1 hunk FAILED -- rejects in file sources/build/rules.mak patching file sources/pjmedia/build/os-auto.mak.in patching file sources/pjmedia/build/os-darwinos.mak Hunk #1 FAILED at 59. 1 out of 1 hunk FAILED -- rejects in file sources/pjmedia/build/os-darwinos.mak patching file sources/pjmedia/build/os-linux.mak Hunk #1 FAILED at 53. 1 out of 1 hunk FAILED -- rejects in file sources/pjmedia/build/os-linux.mak patching file sources/pjmedia/build/os-win32.mak Hunk #1 FAILED at 55. 1 out of 1 hunk FAILED -- rejects in file sources/pjmedia/build/os-win32.mak patching file sources/pjmedia/include/pjmedia/echo.h Hunk #1 FAILED at 78. 1 out of 1 hunk FAILED -- rejects in file sources/pjmedia/include/pjmedia/echo.h patching file sources/pjmedia/src/pjmedia/echo_common.c Hunk #1 FAILED at 125. Hunk #2 FAILED at 177. 2 out of 2 hunks FAILED -- rejects in file sources/pjmedia/src/pjmedia/echo_common.c patching file sources/pjmedia/src/pjmedia/echo_internal.h Hunk #1 FAILED at 77. 1 out of 1 hunk FAILED -- rejects in file sources/pjmedia/src/pjmedia/echo_internal.h patching file sources/pjmedia/src/pjmedia/echo_webrtc_aec.c patching file sources/third_party/build/os-auto.mak.in patching file sources/third_party/build/os-darwinos.mak Hunk #1 FAILED at 5. 1 out of 1 hunk FAILED -- rejects in file sources/third_party/build/os-darwinos.mak patching file sources/third_party/build/os-linux.mak Hunk #1 FAILED at 5. 1 out of 1 hunk FAILED -- rejects in file sources/third_party/build/os-linux.mak patching file sources/third_party/build/webrtc/Makefile patching file sources/third_party/build/webrtc/os-auto.mak.in patching file sources/third_party/build/webrtc/os-darwinos.mak patching file sources/third_party/build/webrtc/os-linux.mak patching file sources/third_party/build/webrtc/os-win32.mak Patch 002pjsip-webrtc-aec.diff does not apply (enforce with -f) make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: <strong></strong><strong> [.patched_sources] Error 1 </strong></p><p>make: <strong></strong><strong> [jni/pjsip/.patched_sources] Error 2 </strong></p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/112377074158921750470/">qincunr...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Wed Dec 24 22:34:57 2014">Dec 24, 2014</span>
+ <div>
+<div class="commentcontent">
+<p>Hello. I have just updated to the last revision and I have a problem running "make". I am getting this error: fatal: unable to access '<a href="https://android.googlesource.com/platform/external/aac/" rel="nofollow">https://android.googlesource.com/platform/external/aac/</a>': Failed to connect to android.googlesource.com port 443: Operation not permitted </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/112939147976698895236/">jery....@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Fri Jan  2 10:30:48 2015">Jan 2, 2015</span>
+ <div>
+<div class="commentcontent">
+<p>hello can i build with only g722 codec.(passing options in the make stage) </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/117021413662472932975/">normal.t...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Tue Jan 27 04:09:05 2015">Jan 27, 2015</span>
+ <div>
+<div class="commentcontent">
+<p>How to build the codec pack? I built CSIPSIMPLE with make CodecPackLibs<a href="https://code.google.com/p/csipsimple/w/edit/CodecPackLibs">?</a> but it seems not to be in the final apk. How to make that codecpack apk? </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ 
+ <span class="userlink">blackeir...@gmail.com</span>,
+ 
+ </span>
+ <span class="date" title="Fri Feb  6 04:24:12 2015">Feb 6, 2015</span>
+ <div>
+<div class="commentcontent">
+<p>can anybody customise csipsimple for me, and what's the price, anyone available mail me on blackeire123@gmail.com. thanks </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/113312371495463024319/">adrian.s...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu Feb 19 00:25:24 2015">Feb 19, 2015</span>
+ <div>
+<div class="commentcontent">
+<p>hi ...  i've cheked out latest  trunk on my ubuntu12.04 x32 and VeideoLibs<a href="https://code.google.com/p/csipsimple/w/edit/VeideoLibs">?</a> are going bananas on all architectures. please find the error below. </p><p>armeabi<a href="https://code.google.com/p/csipsimple/w/edit/armeabi">?</a> SharedLibrary<a href="https://code.google.com/p/csipsimple/w/edit/SharedLibrary">?</a>  : libpj_video_android.so jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1086: error: undefined reference to 'av_strerror' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1324: error: undefined reference to 'avcodec_close' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1325: error: undefined reference to 'av_free' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1328: error: undefined reference to 'avcodec_close' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1329: error: undefined reference to 'av_free' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1430: error: undefined reference to 'avcodec_get_frame_defaults' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1455: error: undefined reference to 'av_init_packet' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1460: error: undefined reference to 'avcodec_encode_video2' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:409: error: undefined reference to 'av_opt_set' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:427: error: undefined reference to 'av_opt_set_int' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:434: error: undefined reference to 'av_opt_set_int' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:442: error: undefined reference to 'av_opt_set' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:445: error: undefined reference to 'av_opt_set' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1116: error: undefined reference to 'avcodec_alloc_context3' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1125: error: undefined reference to 'avcodec_alloc_context3' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1185: error: undefined reference to 'avcodec_open2' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1200: error: undefined reference to 'avcodec_open2' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1222: error: undefined reference to 'avcodec_close' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1223: error: undefined reference to 'av_free' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1228: error: undefined reference to 'avcodec_close' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1229: error: undefined reference to 'av_free' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1680: error: undefined reference to 'avcodec_get_frame_defaults' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1683: error: undefined reference to 'av_init_packet' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:1705: error: undefined reference to 'avcodec_decode_video2' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:629: error: undefined reference to 'avcodec_register_all' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia-codec/ffmpeg_vid_codecs.c:632: error: undefined reference to 'av_codec_next' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia/converter_libswscale.c:172: error: undefined reference to 'sws_freeContext' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia/converter_libswscale.c:152: error: undefined reference to 'sws_scale' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia/converter_libswscale.c:112: error: undefined reference to 'sws_getContext' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia/ffmpeg_util.c:113: error: undefined reference to 'av_log_get_level' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia/ffmpeg_util.c:88: error: undefined reference to 'av_log_set_level' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia/ffmpeg_util.c:89: error: undefined reference to 'av_log_set_callback' jni/pjsip/android_toolchain/pjmedia/../../sources/pjmedia/src/pjmedia/ffmpeg_util.c:90: error: undefined reference to 'av_register_all' collect2: error: ld returned 1 exit status make1<a href="https://code.google.com/p/csipsimple/w/edit/1">?</a>: <strong></strong><strong> [obj/local/armeabi/libpj_video_android.so] Error 1 </strong></p><p>Please help! </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+ 
+ <div class="artifactcomment">
+ 
+ 
+ 
+ 
+ 
+ 
+ <span class="author">Comment
+ 
+ by 
+ 
+ 
+
+ <a class="userlink" href="https://code.google.com/u/112745557098548669829/">gruppo...@gmail.com</a>,
+ 
+ </span>
+ <span class="date" title="Thu May 21 15:42:00 2015">May 21, 2015</span>
+ <div>
+<div class="commentcontent">
+<p>Could anybody customise csipsimple also for me, and what's the price, anyone available mail me on cedcalabria@gmail.com. Thank you. </p>
+</div>
+ 
+ 
+ </div>
+ </div>
+ 
+
+</div>
+</div>
+
+ 
+
+
+ <script type="text/javascript">
+ function delComment(sequence_num, create_time, delete_mode) {
+ var f = document.forms["delcom"];
+ f.sequence_num.value = sequence_num;
+ f.create_time.value = create_time;
+ f.mode.value = delete_mode;
+ f.submit();
+ return false;
+ }
+ </script>
+
+
+ </div>
+ 
+ 
+ 
+ 
+ <br>
+ <div class="artifactcomment">
+ <span class="indicator">►</span> <a href="https://www.google.com/accounts/ServiceLogin?service=code&amp;ltmpl=phosting&amp;continue=https%3A%2F%2Fcode.google.com%2Fp%2Fcsipsimple%2Fwiki%2FHowToBuild&amp;followup=https%3A%2F%2Fcode.google.com%2Fp%2Fcsipsimple%2Fwiki%2FHowToBuild">Sign in</a> to add a comment
+ </div>
+ 
+ 
+ 
+ 
+ <form name="delcom" action="../w/delComment.do" method="POST">
+ <input name="sequence_num" value="" type="hidden">
+ <input name="create_time" value="" type="hidden">
+ <input name="mode" value="" type="hidden">
+ <input name="pagename" value="HowToBuild" type="hidden">
+ <input name="token" value="" type="hidden">
+ </form>
+
+
+ <script src="HowToBuild%20-%20csipsimple%20-%20This%20page%20explains%20how%20to%20build%20the%20application.%20-%20SIP%20application%20for%20Android%20devices%20-%20Google%20Project%20Hosting_files/prettify.js"></script>
+ <script type="text/javascript">
+ prettyPrint();
+ </script>
+
+<script type="text/javascript" src="HowToBuild%20-%20csipsimple%20-%20This%20page%20explains%20how%20to%20build%20the%20application.%20-%20SIP%20application%20for%20Android%20devices%20-%20Google%20Project%20Hosting_files/dit_scripts.js"></script>
+
+
+
+  
+ 
+ 
+ <script type="text/javascript" src="HowToBuild%20-%20csipsimple%20-%20This%20page%20explains%20how%20to%20build%20the%20application.%20-%20SIP%20application%20for%20Android%20devices%20-%20Google%20Project%20Hosting_files/ph_core.js"></script>
+ 
+ <script type="text/javascript" src="HowToBuild%20-%20csipsimple%20-%20This%20page%20explains%20how%20to%20build%20the%20application.%20-%20SIP%20application%20for%20Android%20devices%20-%20Google%20Project%20Hosting_files/ph_dwiki.js"></script>
+ 
+ 
+ 
+ 
+</div> 
+
+<div id="footer" dir="ltr">
+ <div class="text">
+ <a href="https://code.google.com/projecthosting/terms.html">Terms</a> -
+ <a href="http://www.google.com/privacy.html">Privacy</a> -
+ <a href="https://code.google.com/p/support/">Project Hosting Help</a>
+ </div>
+</div>
+ <div class="hostedBy" style="margin-top: -20px;">
+ <span style="vertical-align: top;">Powered by <a href="http://code.google.com/projecthosting/">Google Project Hosting</a></span>
+ </div>
+
+ 
+ 
+
+
+ 
+ 
+
+
+
+<div style="display: none;" id="menuDiv-projects-dropdown" class="menuDiv instance0"><div class="menuCategory default"></div><div class="menuCategory controls"><a href="http://www.google.com/accounts/ServiceLogin?service=code&amp;ltmpl=phosting&amp;continue=https%3A%2F%2Fcode.google.com%2Fp%2Fcsipsimple%2Fwiki%2FHowToBuild&amp;amp;followup=https%3A%2F%2Fcode.google.com%2Fp%2Fcsipsimple%2Fwiki%2FHowToBuild" style="display: block;" class="menuItem">Sign in to see your favorites</a><hr class="menuSeparator"><a href="https://code.google.com/hosting/" style="display: block;" class="menuItem">Find open source projects...</a><a href="https://code.google.com/hosting/createProject" style="display: block;" class="menuItem">Create a project...</a></div></div></body></html>
