@@ -1,0 +1,661 @@
+diff --git a/CSipSimple/Makefile b/CSipSimple/Makefile
+index d0a8800..712885a 100644
+--- a/CSipSimple/Makefile
++++ b/CSipSimple/Makefile
+@@ -1,8 +1,8 @@
+ 
+-external_repos := silk opus zrtp4pj openssl libvpx fdk_aac
++external_repos := zrtp4pj openssl
+ external_sources := $(foreach repos, $(external_repos),jni/$(repos)/sources)
+ 
+-to_patch := pjsip webrtc ffmpeg libvpx silk fdk_aac
++to_patch := pjsip
+ to_patch_files := $(foreach proj, $(to_patch),jni/$(proj)/.patched_sources)
+ 
+ all : libraries
+@@ -68,4 +68,4 @@ update : $(external_sources)
+ 	@$(foreach dir,$(external_repos),$(MAKE) $(MFLAGS) -C jni/$(dir) update;)
+ 	# Update ffmpeg
+ 	@($(MAKE) $(MFLAGS) -C jni/ffmpeg update)
+-	
+\ No newline at end of file
++	
+diff --git a/CSipSimple/jni/Android.mk b/CSipSimple/jni/Android.mk
+index f1bc5a3..4ad3eb7 100644
+--- a/CSipSimple/jni/Android.mk
++++ b/CSipSimple/jni/Android.mk
+@@ -12,12 +12,12 @@ endif
+ include $(JNI_PATH)/pjsip/android_toolchain/Android.mk
+ include $(JNI_PATH)/webrtc/android_toolchain/Android.mk
+ include $(JNI_PATH)/amr-stagefright/android_toolchain/Android.mk
+-include $(JNI_PATH)/silk/android_toolchain/Android.mk
++#include $(JNI_PATH)/silk/android_toolchain/Android.mk
+ include $(JNI_PATH)/g726/android_toolchain/Android.mk
+ include $(JNI_PATH)/g729/android_toolchain/Android.mk
+ include $(JNI_PATH)/codec2/android_toolchain/Android.mk
+-include $(JNI_PATH)/opus/android_toolchain/Android.mk
+-include $(JNI_PATH)/fdk_aac/android_toolchain/Android.mk
++#include $(JNI_PATH)/opus/android_toolchain/Android.mk
++#include $(JNI_PATH)/fdk_aac/android_toolchain/Android.mk
+ include $(JNI_PATH)/zrtp4pj/android_toolchain/Android.mk
+ 
+ ifeq ($(MY_USE_TLS),1)
+diff --git a/CSipSimple/jni/Application.mk b/CSipSimple/jni/Application.mk
+index d418839..d09ffa1 100644
+--- a/CSipSimple/jni/Application.mk
++++ b/CSipSimple/jni/Application.mk
+@@ -3,7 +3,7 @@ JNI_DIR := $(call my-dir)
+ # Create a Local.mk file if you need to customize values below
+ 
+ APP_OPTIM        := release
+-APP_ABI := armeabi armeabi-v7a x86 mips
++APP_ABI := arm64-v8a x86_64
+ 
+ MY_USE_CSIPSIMPLE := 1
+ 
+@@ -15,12 +15,12 @@ MY_USE_SPEEX := 1
+ MY_USE_GSM := 1
+ MY_USE_SILK := 0
+ MY_USE_CODEC2 := 1
+-MY_USE_WEBRTC := 1
++MY_USE_WEBRTC := 0
+ MY_USE_AMR := 1
+ MY_USE_G726 := 1
+-MY_USE_OPUS := 1
++MY_USE_OPUS := 0
+ 
+-MY_USE_VIDEO := 1
++MY_USE_VIDEO := 0
+ 
+ MY_USE_TLS := 1
+ MY_USE_ZRTP := 1
+@@ -37,7 +37,7 @@ else
+ $(call __ndk_info,No local settings... build all in release mode !)
+ endif
+ 
+-APP_MODULES := libpjsipjni pj_opensl_dev
++APP_MODULES := libpjsipjni
+ ifeq ($(MY_USE_SILK),1)
+ APP_MODULES += pj_silk_codec
+ endif
+@@ -54,7 +54,7 @@ PYTHON ?= python
+ # Module for screen capture is
+ # pj_screen_capture_android
+ 
+-APP_PLATFORM := android-14
++APP_PLATFORM := android-21
+ APP_STL := stlport_shared
+ 
+ BASE_PJSIP_FLAGS := -DPJ_ANDROID=1 -DUSE_CSIPSIMPLE=$(MY_USE_CSIPSIMPLE)
+diff --git a/CSipSimple/jni/csipsimple-wrapper/android_toolchain/Android.mk b/CSipSimple/jni/csipsimple-wrapper/android_toolchain/Android.mk
+index 9cfc944..4ef67ea 100644
+--- a/CSipSimple/jni/csipsimple-wrapper/android_toolchain/Android.mk
++++ b/CSipSimple/jni/csipsimple-wrapper/android_toolchain/Android.mk
+@@ -129,5 +129,7 @@ endif
+ 
+ LOCAL_STATIC_LIBRARIES += libgcc
+ 
++LOCAL_LDLIBS += -lOpenSLES
++
+ include $(BUILD_SHARED_LIBRARY)
+ 
+diff --git a/CSipSimple/jni/csipsimple-wrapper/src/pjsua_jni_addons.c b/CSipSimple/jni/csipsimple-wrapper/src/pjsua_jni_addons.c
+index 72a312c..33e5bc6 100644
+--- a/CSipSimple/jni/csipsimple-wrapper/src/pjsua_jni_addons.c
++++ b/CSipSimple/jni/csipsimple-wrapper/src/pjsua_jni_addons.c
+@@ -25,6 +25,7 @@
+ #endif
+ 
+ #include "android_dev.h"
++#include "opensl_dev.h"
+ #if PJMEDIA_HAS_VIDEO
+ #include "webrtc_android_render_dev.h"
+ #endif
+@@ -527,7 +528,7 @@ PJ_DECL(pj_status_t) csipsimple_init(pjsua_config *ua_cfg,
+ 
+ 		// Fallback to default audio dev if no one found
+ 		if (added_audio != PJ_SUCCESS) {
+-			pjmedia_aud_register_factory(&pjmedia_android_factory);
++			pjmedia_aud_register_factory(&pjmedia_opensl_factory);
+ 		}
+ 
+ 		// Init video device
+diff --git a/CSipSimple/jni/ffmpeg/Makefile b/CSipSimple/jni/ffmpeg/Makefile
+index 4e40ab1..9a7ed93 100644
+--- a/CSipSimple/jni/ffmpeg/Makefile
++++ b/CSipSimple/jni/ffmpeg/Makefile
+@@ -35,12 +35,12 @@ $(FFMPEG_BUILD_DIRECTORY)/%/$(FFMPEG_TEST_LIB) : ffmpeg_src/VERSION $(X264_BUILD
+ 
+ # Source checkout
+ ffmpeg_src/VERSION :
+-	@git clone git://git.videolan.org/ffmpeg.git ffmpeg_src; \
++	@git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg_src; \
+ 	cd ffmpeg_src; \
+ 	$(call git_update, $(ffmpeg_version))
+ 
+ x264_src/configure :
+-	@git clone git://git.videolan.org/x264.git x264_src; \
++	@git clone https://github.com/mirror/x264.git x264_src; \
+ 	cd x264_src; \
+ 	$(call git_update, $(x264_version))
+ 
+diff --git a/CSipSimple/jni/libvpx/Makefile b/CSipSimple/jni/libvpx/Makefile
+index 9e7ba97..d20329a 100644
+--- a/CSipSimple/jni/libvpx/Makefile
++++ b/CSipSimple/jni/libvpx/Makefile
+@@ -35,7 +35,7 @@ $(BUILD_DIRECTORY)/%/config.mk : sources .patched_sources
+ 	BUILD_PFX=jni/libvpx/$(subst config.mk,,$@) ../../sources/configure --target=$$TGT --disable-examples --sdk-path=$(NDK_ROOT)
+ 
+ sources :
+-	@ git clone https://code.google.com/p/webm.libvpx sources; \
++	@ git clone https://chromium.googlesource.com/webm/libvpx sources; \
+ 	cd sources; \
+ 	git fetch --tags; \
+ 	git checkout origin; \
+diff --git a/CSipSimple/jni/pjsip/android_sources/pjmedia/include/pjmedia-audiodev/opensl_dev.h b/CSipSimple/jni/pjsip/android_sources/pjmedia/include/pjmedia-audiodev/opensl_dev.h
+new file mode 100644
+index 0000000..25ea9ba
+--- /dev/null
++++ b/CSipSimple/jni/pjsip/android_sources/pjmedia/include/pjmedia-audiodev/opensl_dev.h
+@@ -0,0 +1,38 @@
++/**
++ * Copyright (C) 2010 Regis Montoya (aka r3gis - www.r3gis.fr)
++ * This file is part of pjsip_android.
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++#ifndef OPENSL_DEV_H_
++#define OPENSL_DEV_H_
++
++
++#include <pjmedia-audiodev/audiodev_imp.h>
++#include <pj/assert.h>
++#include <pj/log.h>
++#include <pj/os.h>
++#include <pj/string.h>
++#include <sys/resource.h>
++//#include <utils/threads.h>
++
++/*
++ * C compatible declaration of Android factory.
++ */
++PJ_BEGIN_DECL
++PJ_DECL(pjmedia_aud_dev_factory*) pjmedia_opensl_factory(pj_pool_factory *pf);
++PJ_END_DECL
++
++
++#endif /* OPENSL_DEV_H_ */
+diff --git a/CSipSimple/jni/pjsip/android_sources/pjmedia/src/pjmedia-audiodev/android_jni_dev.cpp b/CSipSimple/jni/pjsip/android_sources/pjmedia/src/pjmedia-audiodev/android_jni_dev.cpp
+index 16875ce..f727670 100644
+--- a/CSipSimple/jni/pjsip/android_sources/pjmedia/src/pjmedia-audiodev/android_jni_dev.cpp
++++ b/CSipSimple/jni/pjsip/android_sources/pjmedia/src/pjmedia-audiodev/android_jni_dev.cpp
+@@ -731,15 +731,7 @@ static pj_status_t android_create_stream(pjmedia_aud_dev_factory *f,
+ 
+ 		int mic_source = on_set_micro_source_wrapper();
+ 		if(mic_source == 0){
+-			mic_source = 1;
+-			char sdk_version[PROP_VALUE_MAX];
+-			__system_property_get("ro.build.version.sdk", sdk_version);
+-
+-			pj_str_t pj_sdk_version = pj_str(sdk_version);
+-			int sdk_v = pj_strtoul(&pj_sdk_version);
+-			if(sdk_v >= 10){
+-				mic_source = 7;
+-			}
++			mic_source = 7;
+ 		}
+ 		PJ_LOG(3, (THIS_FILE, "Use micro source : %d", mic_source));
+ 
+diff --git a/CSipSimple/jni/pjsip/android_sources/pjmedia/src/pjmedia-audiodev/opensl_dev.c b/CSipSimple/jni/pjsip/android_sources/pjmedia/src/pjmedia-audiodev/opensl_dev.c
+index 163a623..a8ba7dc 100644
+--- a/CSipSimple/jni/pjsip/android_sources/pjmedia/src/pjmedia-audiodev/opensl_dev.c
++++ b/CSipSimple/jni/pjsip/android_sources/pjmedia/src/pjmedia-audiodev/opensl_dev.c
+@@ -57,6 +57,11 @@
+ 
+ #define NUM_BUFFERS 2
+ 
++
++#include "pj_loader.h"
++
++
++
+ struct opensl_aud_factory
+ {
+     pjmedia_aud_dev_factory  base;
+@@ -114,6 +119,10 @@ struct opensl_aud_stream
+     char               *recordBuffer[NUM_BUFFERS];
+     int                 recordBufIdx;
+ 
++	/* AEC through JNI */
++	jobject aecManager;
++	jclass  aecManager_class;
++
+     W_SLBufferQueueItf  playerBufQ;
+     W_SLBufferQueueItf  recordBufQ;
+ };
+@@ -505,6 +514,17 @@ static pj_status_t opensl_create_stream(pjmedia_aud_dev_factory *f,
+             param->channel_count;
+     bufferSize = param->samples_per_frame * param->bits_per_sample / 8;
+ 
++#ifdef __ANDROID__
++    // DAMS HACK
++    JNIEnv *jni_env = 0;
++    ATTACH_JVM(jni_env) ;
++
++    stream->aecManager_class = (jclass)(*jni_env)->NewGlobalRef(jni_env,(*jni_env)->FindClass(jni_env,"com/csipsimple/service/AecManager"));
++    jmethodID constructor_method = (*jni_env)->GetMethodID(jni_env,stream->aecManager_class,"<init>", "(III)V");
++    stream->aecManager = (*jni_env)->NewObject(jni_env,stream->aecManager_class, constructor_method, param->clock_rate, param->channel_count, param->bits_per_sample) ;
++    stream->aecManager = (*jni_env)->NewGlobalRef(jni_env,stream->aecManager);
++#endif
++
+     /* Configure audio PCM format */
+     format_pcm.formatType = SL_DATAFORMAT_PCM;
+     format_pcm.numChannels = param->channel_count;
+@@ -620,7 +640,7 @@ static pj_status_t opensl_create_stream(pjmedia_aud_dev_factory *f,
+     }
+ 
+     if (stream->dir & PJMEDIA_DIR_CAPTURE) {
+-        /* Audio source */
++         /* Audio source */
+         SLDataLocator_IODevice loc_dev = {SL_DATALOCATOR_IODEVICE,
+                                           SL_IODEVICE_AUDIOINPUT,
+                                           SL_DEFAULTDEVICEID_AUDIOINPUT,
+@@ -659,20 +679,7 @@ static pj_status_t opensl_create_stream(pjmedia_aud_dev_factory *f,
+                                                     SL_IID_ANDROIDCONFIGURATION,
+                                                     &recorderConfig);
+         if (result == SL_RESULT_SUCCESS) {
+-            SLint32 streamType = SL_ANDROID_RECORDING_PRESET_GENERIC;
+-#if __ANDROID_API__ >= 14
+-            char sdk_version[PROP_VALUE_MAX];
+-            pj_str_t pj_sdk_version;
+-            int sdk_v;
+-
+-            __system_property_get("ro.build.version.sdk", sdk_version);
+-            pj_sdk_version = pj_str(sdk_version);
+-            sdk_v = pj_strtoul(&pj_sdk_version);
+-            if (sdk_v >= 14)
+-                streamType = SL_ANDROID_RECORDING_PRESET_VOICE_COMMUNICATION;
+-            PJ_LOG(4, (THIS_FILE, "Recording stream type %d, SDK : %d",
+-                                  streamType, sdk_v));
+-#endif
++            SLint32 streamType = SL_ANDROID_RECORDING_PRESET_VOICE_COMMUNICATION;
+             result = (*recorderConfig)->SetConfiguration(
+                          recorderConfig, SL_ANDROID_KEY_RECORDING_PRESET,
+                          &streamType, sizeof(SLint32));
+@@ -682,8 +689,9 @@ static pj_status_t opensl_create_stream(pjmedia_aud_dev_factory *f,
+                                   "recorder configuration"));
+         }
+ #endif
+-        
+-        /* Realize the recorder */
++
++
++       /* Realize the recorder */
+         result = (*stream->recordObj)->Realize(stream->recordObj,
+                                                SL_BOOLEAN_FALSE);
+         if (result != SL_RESULT_SUCCESS) {
+@@ -691,6 +699,19 @@ static pj_status_t opensl_create_stream(pjmedia_aud_dev_factory *f,
+             goto on_error;
+         }
+         
++        
++        
++#ifdef __ANDROID__
++    // DAMS HACK
++    jmethodID test_method = (*jni_env)->GetMethodID(jni_env,stream->aecManager_class, "useAecHack", "()V");
++    (*jni_env)->CallVoidMethod(jni_env,stream->aecManager, test_method) ;
++#endif
++
++        
++         
++        
++        
++        
+         /* Get the record interface */
+         result = (*stream->recordObj)->GetInterface(stream->recordObj,
+                                                     SL_IID_RECORD,
+@@ -735,9 +756,17 @@ static pj_status_t opensl_create_stream(pjmedia_aud_dev_factory *f,
+     /* Done */
+     stream->base.op = &opensl_strm_op;
+     *p_aud_strm = &stream->base;
++#ifdef __ANDROID__
++    // DAMS HACK
++    DETACH_JVM(jni_env) ;
++#endif
+     return PJ_SUCCESS;
+     
+ on_error:
++#ifdef __ANDROID__
++    // DAMS HACK
++    DETACH_JVM(jni_env) ;
++#endif
+     strm_destroy(&stream->base);
+     return PJMEDIA_EAUD_INVOP;
+ }
+@@ -942,6 +971,25 @@ static pj_status_t strm_destroy(pjmedia_aud_stream *s)
+     /* Stop the stream */
+     strm_stop(s);
+     
++#ifdef __ANDROID__
++	// DAMS HACK
++	JNIEnv *jni_env = 0;
++	ATTACH_JVM(jni_env) ;
++	
++	if(stream->aecManager){
++		//release AEC
++		jmethodID release_method = (*jni_env)->GetMethodID(jni_env,stream->aecManager_class,"releaseAec", "()V");
++		(*jni_env)->CallVoidMethod(jni_env,stream->aecManager, release_method);
++
++		(*jni_env)->DeleteGlobalRef(jni_env,stream->aecManager);
++		(*jni_env)->DeleteGlobalRef(jni_env,stream->aecManager_class);
++		stream->aecManager = NULL;
++		stream->aecManager_class = NULL;
++	}
++	
++	DETACH_JVM(jni_env) ;
++#endif
++
+     if (stream->playerObj) {
+         /* Destroy the player */
+         (*stream->playerObj)->Destroy(stream->playerObj);
+@@ -960,6 +1008,7 @@ static pj_status_t strm_destroy(pjmedia_aud_stream *s)
+         stream->recordRecord = NULL;
+         stream->recordBufQ = NULL;
+     }
++
+     
+     pj_pool_release(stream->pool);
+     PJ_LOG(4, (THIS_FILE, "OpenSL stream destroyed"));
+diff --git a/CSipSimple/jni/pjsip/android_toolchain/pjmedia/Android.mk b/CSipSimple/jni/pjsip/android_toolchain/pjmedia/Android.mk
+index b57fc2a..f2c6f71 100644
+--- a/CSipSimple/jni/pjsip/android_toolchain/pjmedia/Android.mk
++++ b/CSipSimple/jni/pjsip/android_toolchain/pjmedia/Android.mk
+@@ -82,11 +82,16 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../android_sources/pjmedia/include/pjmedia-
+ 	$(LOCAL_PATH)/../../../swig-glue
+ LOCAL_SRC_FILES += $(PJ_ANDROID_SRC_DIR)/pjmedia-audiodev/android_jni_dev.cpp
+ 
++LOCAL_CFLAGS := $(MY_PJSIP_FLAGS) -DPJMEDIA_AUDIO_DEV_HAS_OPENSL=1
++LOCAL_SRC_FILES += $(PJ_ANDROID_SRC_DIR)/pjmedia-audiodev/opensl_dev.c
++# below is ignored => actual LOCAL_LDLIBS : jni/csipsimple-wrapper/android_toolchain/Android.mk
++LOCAL_LDLIBS += -lOpenSLES
++
+ 
+ include $(BUILD_STATIC_LIBRARY)
+ 
+ include $(TOOLCHAIN_PATH)/Codec_g7221.mk
+-include $(TOOLCHAIN_PATH)/OpenSL_ES.mk
++#include $(TOOLCHAIN_PATH)/OpenSL_ES.mk
+ include $(TOOLCHAIN_PATH)/Video.mk
+ include $(TOOLCHAIN_PATH)/Screencapture.mk
+ 
+diff --git a/CSipSimple/jni/pjsip/android_toolchain/pjmedia/OpenSL_ES.mk b/CSipSimple/jni/pjsip/android_toolchain/pjmedia/OpenSL_ES.mk
+index c546c8d..05026a6 100644
+--- a/CSipSimple/jni/pjsip/android_toolchain/pjmedia/OpenSL_ES.mk
++++ b/CSipSimple/jni/pjsip/android_toolchain/pjmedia/OpenSL_ES.mk
+@@ -13,7 +13,8 @@ PJ_ANDROID_SRC_DIR := ../../android_sources/pjmedia/src
+ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../pjlib/include $(LOCAL_PATH)/../pjlib-util/include \
+ 	$(LOCAL_PATH)/../pjnath/include $(LOCAL_PATH)/include $(LOCAL_PATH)/..
+ 
+-LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../android_sources/pjmedia/include/pjmedia-audiodev
++LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../android_sources/pjmedia/include/pjmedia-audiodev \
++	$(LOCAL_PATH)/../../../swig-glue
+ 
+ 
+ LOCAL_SRC_FILES += $(PJ_ANDROID_SRC_DIR)/pjmedia-audiodev/opensl_dev.c
+diff --git a/CSipSimple/jni/pjsip/patches/000android_os.diff b/CSipSimple/jni/pjsip/patches/000android_os.diff
+index 726427f..8b516ea 100644
+--- a/CSipSimple/jni/pjsip/patches/000android_os.diff
++++ b/CSipSimple/jni/pjsip/patches/000android_os.diff
+@@ -52,7 +52,7 @@ Index: pjsip/sources/pjlib/include/pj/compat/os_auto.h
+ +#define PJ_HAS_SYS_SELECT_H	    1
+ +#define PJ_HAS_SYS_SOCKET_H	    1
+ +#define PJ_HAS_SYS_TIME_H	    1
+-+#define PJ_HAS_SYS_TIMEB_H	    1
+++#define PJ_HAS_SYS_TIMEB_H	    0
+ +#define PJ_HAS_SYS_TYPES_H	    1
+ +#define PJ_HAS_TIME_H		    1
+ +#define PJ_HAS_UNISTD_H		    1
+diff --git a/CSipSimple/jni/pjsip/patches/015dams_fixed_jbuf.diff b/CSipSimple/jni/pjsip/patches/015dams_fixed_jbuf.diff
+new file mode 100644
+index 0000000..5488c82
+--- /dev/null
++++ b/CSipSimple/jni/pjsip/patches/015dams_fixed_jbuf.diff
+@@ -0,0 +1,14 @@
++Index: pjsip/sources/pjmedia/src/pjmedia/stream.c
++===================================================================
++--- pjsip.orig/sources/pjmedia/src/pjmedia/stream.c    2014-06-22 14:49:04.188287832 +0200
+++++ pjsip/sources/pjmedia/src/pjmedia/stream.c 2014-06-22 14:49:04.184287475 +0200
++@@ -2264,7 +2264,8 @@
++ 
++ 
++     /* Set up jitter buffer */
++-    pjmedia_jbuf_set_adaptive( stream->jb, jb_init, jb_min_pre, jb_max_pre);
+++    //pjmedia_jbuf_set_adaptive( stream->jb, jb_init, jb_min_pre, jb_max_pre);
+++    pjmedia_jbuf_set_fixed( stream->jb, jb_init );
++ 
++     /* Create decoder channel: */
++ 
+diff --git a/CSipSimple/jni/pjsip/patches/series b/CSipSimple/jni/pjsip/patches/series
+index 80aaf8c..c2868c0 100644
+--- a/CSipSimple/jni/pjsip/patches/series
++++ b/CSipSimple/jni/pjsip/patches/series
+@@ -8,3 +8,4 @@
+ 011add_vpx_type.h
+ 013ignore_stun_failure_transport_creation.diff
+ 014opus_ts_fix.diff
++015dams_fixed_jbuf.diff
+diff --git a/CSipSimple/jni/webrtc/sources/modules/audio_processing/aec/Android.mk b/CSipSimple/jni/webrtc/sources/modules/audio_processing/aec/Android.mk
+index 26679d8..daf9124 100644
+--- a/CSipSimple/jni/webrtc/sources/modules/audio_processing/aec/Android.mk
++++ b/CSipSimple/jni/webrtc/sources/modules/audio_processing/aec/Android.mk
+@@ -26,6 +26,11 @@ LOCAL_SRC_FILES += \
+     aec_core_sse2.c \
+     aec_rdft_sse2.c
+ endif
++ifeq ($(TARGET_ARCH),x86_64)
++LOCAL_SRC_FILES += \
++    aec_core_sse2.c \
++    aec_rdft_sse2.c
++endif
+ 
+ # Flags passed to both C and C++ files.
+ LOCAL_CFLAGS := \
+diff --git a/CSipSimple/jni/webrtc/sources/typedefs.h b/CSipSimple/jni/webrtc/sources/typedefs.h
+index d6d4015..bf31611 100644
+--- a/CSipSimple/jni/webrtc/sources/typedefs.h
++++ b/CSipSimple/jni/webrtc/sources/typedefs.h
+@@ -53,6 +53,11 @@
+ #define WEBRTC_ARCH_32_BITS
+ #define WEBRTC_ARCH_LITTLE_ENDIAN
+ #define WEBRTC_LITTLE_ENDIAN
++#elif defined(__aarch64__)
++// TODO(dmfr): Fix compilation
++#define WEBRTC_ARCH_64_BITS
++#define WEBRTC_ARCH_LITTLE_ENDIAN
++#define WEBRTC_LITTLE_ENDIAN
+ #elif defined(__MIPSEL__)
+ #define WEBRTC_ARCH_32_BITS
+ #define WEBRTC_ARCH_LITTLE_ENDIAN
+diff --git a/CSipSimple/project.properties b/CSipSimple/project.properties
+index 7701eb7..57d826e 100644
+--- a/CSipSimple/project.properties
++++ b/CSipSimple/project.properties
+@@ -10,5 +10,5 @@
+ # Indicates whether an apk should be generated for each density.
+ split.density=false
+ # Project target.
+-target=android-19
++target=android-22
+ android.library.reference.1=../ActionBarSherlock
+diff --git a/CSipSimple/res/values/prefs_values.xml b/CSipSimple/res/values/prefs_values.xml
+index a63bf0a..9836640 100644
+--- a/CSipSimple/res/values/prefs_values.xml
++++ b/CSipSimple/res/values/prefs_values.xml
+@@ -25,6 +25,7 @@
+         <item>16000</item>
+         <item>32000</item>
+         <item>44100</item>
++	<item>48000</item>
+     </string-array>
+     <string-array name="clock_rate_choices">
+         <item>@string/auto</item>
+@@ -32,6 +33,7 @@
+         <item>16KHz</item>
+         <item>32KHz</item>
+         <item>44.1KHz</item>
++	<item>48kHz</item>
+     </string-array>
+     <string-array name="use_srtp_values">
+         <item>0</item>
+@@ -302,4 +304,4 @@
+         <item>5.2</item>
+     </string-array>
+ 
+-</resources>
+\ No newline at end of file
++</resources>
+diff --git a/CSipSimple/src/com/csipsimple/pjsip/PjSipService.java b/CSipSimple/src/com/csipsimple/pjsip/PjSipService.java
+index 3da8870..86aec17 100644
+--- a/CSipSimple/src/com/csipsimple/pjsip/PjSipService.java
++++ b/CSipSimple/src/com/csipsimple/pjsip/PjSipService.java
+@@ -1931,7 +1931,7 @@ public class PjSipService {
+                     callHold(hasBeenHoldByGSM);
+                     pjsua.set_no_snd_dev();
+ 
+-                    am.setMode(AudioManager.MODE_IN_CALL);
++                    am.setMode(AudioManager.MODE_IN_COMMUNICATION);
+                 } else {
+                     // We have a ringing incoming call.
+                     // Avoid ringing
+diff --git a/CSipSimple/src/com/csipsimple/service/AecManager.java b/CSipSimple/src/com/csipsimple/service/AecManager.java
+new file mode 100644
+index 0000000..1d21040
+--- /dev/null
++++ b/CSipSimple/src/com/csipsimple/service/AecManager.java
+@@ -0,0 +1,80 @@
++package com.csipsimple.service;
++
++import java.util.ArrayList;
++import android.media.AudioFormat;
++import android.media.AudioRecord;
++import android.media.MediaRecorder;
++import android.media.audiofx.AcousticEchoCanceler;
++import android.util.Log;
++
++public class AecManager {
++	AcousticEchoCanceler mAec ;
++	int mStartId ;
++	
++	public AecManager( int sampleRate, int channelCount, int bitsPerSample ) {
++		mAec = null ;
++		
++		mStartId = 0 ;
++		switch( channelCount ) {
++			case 1 :
++				channelCount = AudioFormat.CHANNEL_IN_MONO ;
++				break ;
++			case 2 :
++				channelCount = AudioFormat.CHANNEL_IN_STEREO ;
++				break ;
++			default :
++				return ;
++		}
++		switch( bitsPerSample ) {
++			case 8 :
++				bitsPerSample = AudioFormat.ENCODING_PCM_8BIT ;
++				break ;
++			case 16 :
++				bitsPerSample = AudioFormat.ENCODING_PCM_16BIT ;
++				break ;
++			default :
++				return ;
++		}
++		
++		try {
++			AudioRecord audioRecord = new AudioRecord( MediaRecorder.AudioSource.VOICE_COMMUNICATION, sampleRate, channelCount, bitsPerSample, 
++				AudioRecord.getMinBufferSize(sampleRate, channelCount, bitsPerSample) ) ;
++			mStartId = audioRecord.getAudioSessionId() ;
++			audioRecord.release() ;
++			Log.e("DAMS","FakeRecorder id is "+mStartId) ;
++		} catch( Exception e ) {
++			Log.e("DAMS","Failed to create FakeRecorder") ;
++		}
++	}
++	public void useAecHack() {
++		if( mAec != null ) {
++			return ;
++		}
++		int winnerId = 0 ;
++		for( int id = mStartId ; id <= (mStartId + 100) ; id++ ) {
++			AcousticEchoCanceler aec = AcousticEchoCanceler.create(id);
++			if( aec != null ) {
++				aec.setEnabled(true);
++				mAec = aec ;
++				winnerId = id ;
++				break ;
++			} else {
++				Log.e("DAMS","AEC failed for id : "+id) ;
++			}
++		}
++		if( mAec != null ) {
++			Log.e("DAMS","AEC success for id : "+winnerId) ;
++		}
++		if( mAec == null && mStartId > 0 ) {
++			mStartId = 0 ;
++			useAecHack() ;
++		}
++	}
++	public void releaseAec() {
++		if( mAec != null ) {
++			mAec.setEnabled(false);
++			mAec.release() ;
++			mAec = null ;
++		}
++	}
++}
+\ No newline at end of file
+diff --git a/CSipSimple/src/com/csipsimple/service/MediaManager.java b/CSipSimple/src/com/csipsimple/service/MediaManager.java
+index 621089b..749286e 100644
+--- a/CSipSimple/src/com/csipsimple/service/MediaManager.java
++++ b/CSipSimple/src/com/csipsimple/service/MediaManager.java
+@@ -148,9 +148,9 @@ public class MediaManager implements BluetoothChangeListener {
+ 		if(service.getPrefs().useModeApi()) {
+             Log.d(THIS_FILE, "User want speaker now..." + userWantSpeaker);
+ 			if(!service.getPrefs().generateForSetCall()) {
+-				return userWantSpeaker ? AudioManager.MODE_NORMAL : AudioManager.MODE_IN_CALL;
++				return userWantSpeaker ? AudioManager.MODE_NORMAL : AudioManager.MODE_IN_COMMUNICATION;
+ 			}else {
+-				return userWantSpeaker ? AudioManager.MODE_IN_CALL: AudioManager.MODE_NORMAL ;
++				return userWantSpeaker ? AudioManager.MODE_IN_COMMUNICATION: AudioManager.MODE_NORMAL ;
+ 			}
+ 		}
+ 		if(userWantBluetooth) {
+diff --git a/CSipSimple/src/com/csipsimple/utils/Compatibility.java b/CSipSimple/src/com/csipsimple/utils/Compatibility.java
+index 4e57ee1..e46a4c4 100644
+--- a/CSipSimple/src/com/csipsimple/utils/Compatibility.java
++++ b/CSipSimple/src/com/csipsimple/utils/Compatibility.java
+@@ -192,11 +192,11 @@ public final class Compatibility {
+             return "3";
+         }
+         if (android.os.Build.DEVICE.equalsIgnoreCase("blade")) {
+-            return Integer.toString(AudioManager.MODE_IN_CALL);
++            return Integer.toString(AudioManager.MODE_IN_COMMUNICATION);
+         }
+ 
+         if (!isCompatible(5)) {
+-            return Integer.toString(AudioManager.MODE_IN_CALL);
++            return Integer.toString(AudioManager.MODE_IN_COMMUNICATION);
+         }
+ 
+         return Integer.toString(AudioManager.MODE_NORMAL);
